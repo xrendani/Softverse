@@ -1,5 +1,27 @@
 
-import { ArrowUpRight, Code, Database, FileCog2, Folders, Globe, Library, Lock, Share2, Sparkles } from "lucide-react";
+import { 
+  ArrowUpRight, 
+  Code, 
+  Database, 
+  FileCog2, 
+  Folders, 
+  Globe, 
+  Library, 
+  Lock, 
+  Share2, 
+  Sparkles, 
+  Wand2,
+  Zap,
+  Terminal,
+  BarChart3,
+  ServerCrash,
+  PackageOpen,
+  Rocket,
+  ShieldAlert,
+  Microscope,
+  GitBranch,
+  Brush
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -41,6 +63,73 @@ const Index = () => {
       title: "Smart Suggestions",
       description: "Get intelligent suggestions and insights to optimize your code and workflow.",
       icon: Sparkles,
+    },
+    // New tools
+    {
+      title: "Universal Formatter & Linter",
+      description: "Format and lint your code with customizable rules across multiple programming languages.",
+      icon: Brush,
+    },
+    {
+      title: "AI Code Reviewer",
+      description: "Get smart suggestions for code optimizations and security vulnerability identification.",
+      icon: Wand2,
+    },
+    {
+      title: "Cross-platform Testing",
+      description: "Test your applications across different browsers and devices to ensure compatibility.",
+      icon: Microscope,
+      comingSoon: true,
+    },
+    {
+      title: "Collaborative Debugging",
+      description: "Debug your code in real-time with teammates using shared terminals and workspaces.",
+      icon: Terminal,
+      comingSoon: true,
+    },
+    {
+      title: "Dependency Scanner",
+      description: "Scan your dependencies for vulnerabilities and get automated fix suggestions.",
+      icon: ShieldAlert,
+    },
+    {
+      title: "Schema Designer",
+      description: "Design your database schemas visually and optimize your queries for performance.",
+      icon: Database,
+      comingSoon: true,
+    },
+    {
+      title: "API Development Environment",
+      description: "Build, mock, test, and document your APIs in a comprehensive development environment.",
+      icon: Globe,
+    },
+    {
+      title: "Performance Profiler",
+      description: "Identify bottlenecks in your frontend and backend code to optimize performance.",
+      icon: BarChart3,
+      comingSoon: true,
+    },
+    {
+      title: "Serverless Playground",
+      description: "Build and deploy serverless functions instantly with a visual interface.",
+      icon: ServerCrash,
+      comingSoon: true,
+    },
+    {
+      title: "Universal Package Manager",
+      description: "Manage packages across multiple ecosystems (npm, pip, etc.) with a unified interface.",
+      icon: PackageOpen,
+    },
+    {
+      title: "Code Snippet Manager",
+      description: "Organize and search your code snippets with AI-powered search and tagging.",
+      icon: Zap,
+    },
+    {
+      title: "CI/CD Pipeline Designer",
+      description: "Design and visualize your continuous integration and deployment workflows.",
+      icon: GitBranch,
+      comingSoon: true,
     },
   ];
 
@@ -118,6 +207,30 @@ const Index = () => {
       tags: ["Database", "Performance", "Tutorial"],
       url: "#",
     },
+    {
+      title: "CI/CD Pipelines Guide",
+      description: "Best practices for setting up efficient CI/CD pipelines for your development workflow.",
+      icon: GitBranch,
+      color: "bg-orange-500",
+      tags: ["DevOps", "CI/CD", "Automation"],
+      url: "#",
+    },
+    {
+      title: "Security Vulnerabilities 101",
+      description: "Essential guide to understanding and preventing common security vulnerabilities.",
+      icon: ShieldAlert,
+      color: "bg-red-500",
+      tags: ["Security", "Best Practices", "Guide"],
+      url: "#",
+    },
+    {
+      title: "Serverless Computing",
+      description: "Comprehensive introduction to serverless architecture and its implementation.",
+      icon: ServerCrash,
+      color: "bg-indigo-500",
+      tags: ["Serverless", "Cloud", "Architecture"],
+      url: "#",
+    },
   ];
 
   return (
@@ -147,6 +260,7 @@ const Index = () => {
                   title={feature.title}
                   description={feature.description}
                   icon={feature.icon}
+                  comingSoon={feature.comingSoon}
                 />
               ))}
             </div>
