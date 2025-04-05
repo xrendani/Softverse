@@ -6,6 +6,7 @@ import { Github, Search, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from './ThemeToggle';
 import { Link } from 'react-router-dom';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -17,7 +18,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 relative">
               <img 
-                src="/lovable-uploads/19de5f88-3989-4691-b590-64352cbcab60.png" 
+                src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
                 alt="Softverse Logo" 
                 className="w-full h-full object-contain logo-pulse"
               />
@@ -44,11 +45,20 @@ const Navbar = () => {
 
           <ThemeToggle />
 
-          <Button variant="outline" size="icon" asChild>
-            <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
-              <Github className="h-4 w-4" />
-            </a>
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="icon" asChild>
+                  <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
+                    <Github className="h-4 w-4" />
+                  </a>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>View on GitHub</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           
           <Button className="bg-softverse-purple hover:bg-softverse-purple/90">
             Get Started

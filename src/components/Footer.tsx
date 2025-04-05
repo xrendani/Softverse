@@ -9,10 +9,14 @@ const Footer = () => {
       <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-softverse-purple rounded-md flex items-center justify-center">
-              <span className="font-bold text-white text-lg">S</span>
+            <div className="w-8 h-8 relative">
+              <img 
+                src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
+                alt="Softverse Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span className="font-bold text-xl text-foreground">Softverse</span>
+            <span className="font-harabara text-xl text-foreground">Softverse</span>
           </div>
           <p className="text-sm text-muted-foreground">
             The everything app for developers.
@@ -21,13 +25,13 @@ const Footer = () => {
           </p>
           <div className="flex gap-2">
             <Button variant="outline" size="icon" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </a>
             </Button>
             <Button variant="outline" size="icon" asChild>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://twitter.com/xrendani" target="_blank" rel="noopener noreferrer">
                 <Twitter className="h-4 w-4" />
                 <span className="sr-only">Twitter</span>
               </a>

@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CodeSnippetManager from "./pages/tools/CodeSnippetManager";
 import ProjectManagement from "./pages/tools/ProjectManagement";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -14,17 +15,19 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/tools/code-snippets" element={<CodeSnippetManager />} />
-          <Route path="/tools/project-management" element={<ProjectManagement />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/tools/code-snippets" element={<CodeSnippetManager />} />
+            <Route path="/tools/project-management" element={<ProjectManagement />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
     </QueryClientProvider>
   );
 };

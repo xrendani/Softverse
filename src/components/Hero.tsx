@@ -14,9 +14,9 @@ const Hero = () => {
         <div className="text-center space-y-6 max-w-4xl mx-auto">
           <div className="flex justify-center mb-6">
             <img 
-              src="/lovable-uploads/19de5f88-3989-4691-b590-64352cbcab60.png" 
+              src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
               alt="Softverse Logo" 
-              className="w-24 h-24 object-contain logo-pulse"
+              className="w-28 h-28 object-contain logo-pulse"
             />
           </div>
           
