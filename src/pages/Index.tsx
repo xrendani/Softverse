@@ -1,4 +1,3 @@
-
 import { 
   ArrowUpRight, 
   Code, 
@@ -30,6 +29,8 @@ import CodeSnippetCard from "@/components/CodeSnippetCard";
 import ProjectCard from "@/components/ProjectCard";
 import ResourceCard from "@/components/ResourceCard";
 import Footer from "@/components/Footer";
+import { useEffect, useState } from "react";
+import { fetchPopularDevLibs, GithubRepo, repoToResourceCard } from "@/lib/github-api";
 
 const Index = () => {
   // Feature cards data
@@ -64,7 +65,6 @@ const Index = () => {
       description: "Get intelligent suggestions and insights to optimize your code and workflow.",
       icon: Sparkles,
     },
-    // New tools
     {
       title: "Universal Formatter & Linter",
       description: "Format and lint your code with customizable rules across multiple programming languages.",
@@ -233,6 +233,52 @@ const Index = () => {
     },
   ];
 
+  // State for GitHub resources
+  const [devLibraries, setDevLibraries] = useState<any[]>([]);
+  const [isLoadingLibs, setIsLoadingLibs] = useState(true);
+  const [libError, setLibError] = useState<string | null>(null);
+
+  // Fetch popular developer libraries on component mount
+  useEffect(() => {
+    const getDevLibs = async () => {
+      try {
+        setIsLoadingLibs(true);
+        const githubRepos = await fetchPopularDevLibs('frontend', 6);
+        
+        // Convert GitHub repos to resource cards
+        const iconMap = [FileCog2, Globe, Database, GitBranch, ShieldAlert, ServerCrash];
+        const colorMap = [
+          "bg-softverse-purple", 
+          "bg-softverse-blue", 
+          "bg-emerald-500", 
+          "bg-orange-500", 
+          "bg-red-500", 
+          "bg-indigo-500"
+        ];
+        
+        const resourceCards = githubRepos.map((repo, index) => {
+          return repoToResourceCard(
+            repo, 
+            colorMap[index % colorMap.length], 
+            iconMap[index % iconMap.length]
+          );
+        });
+        
+        setDevLibraries(resourceCards);
+      } catch (error) {
+        console.error("Error fetching libraries:", error);
+        setLibError("Failed to load developer libraries. Using fallback data.");
+        
+        // Fallback to static data if API fails
+        setDevLibraries(resources);
+      } finally {
+        setIsLoadingLibs(false);
+      }
+    };
+    
+    getDevLibs();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -261,6 +307,7 @@ const Index = () => {
                   description={feature.description}
                   icon={feature.icon}
                   comingSoon={feature.comingSoon}
+                  url={feature.url || (feature.comingSoon ? undefined : "#")}
                 />
               ))}
             </div>
@@ -339,39 +386,72 @@ const Index = () => {
           </div>
         </section>
         
-        {/* Resources Section */}
+        {/* Resources Section - Updated to use GitHub data */}
         <section id="resources" className="py-20 bg-background/50">
           <div className="container">
             <div className="flex flex-col md:flex-row justify-between items-start mb-12">
               <div className="space-y-4 mb-6 md:mb-0">
                 <h2 className="text-3xl font-bold leading-tight">
-                  Developer Resources
+                  Popular Developer Libraries
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl">
-                  Tutorials, guides, and documentation to help you level up.
+                  Trending open-source libraries and tools from GitHub.
                 </p>
               </div>
               <Button className="flex items-center gap-1" asChild>
-                <a href="#">
-                  <span>View all resources</span>
+                <a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">
+                  <span>View trending on GitHub</span>
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
               </Button>
             </div>
             
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {resources.map((resource) => (
-                <ResourceCard
-                  key={resource.title}
-                  title={resource.title}
-                  description={resource.description}
-                  icon={resource.icon}
-                  color={resource.color}
-                  tags={resource.tags}
-                  url={resource.url}
-                />
-              ))}
-            </div>
+            {isLoadingLibs ? (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="rounded-lg border bg-card p-6 animate-pulse">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-md bg-muted"></div>
+                      <div className="flex-1">
+                        <div className="h-5 bg-muted rounded w-2/3 mb-4"></div>
+                        <div className="h-4 bg-muted rounded w-full mb-2"></div>
+                        <div className="h-4 bg-muted rounded w-3/4"></div>
+                        <div className="mt-4 flex gap-2">
+                          <div className="h-6 w-16 bg-muted rounded-full"></div>
+                          <div className="h-6 w-16 bg-muted rounded-full"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : libError ? (
+              <div className="text-center py-10">
+                <p className="text-muted-foreground">{libError}</p>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6">
+                  {resources.map((resource) => (
+                    <ResourceCard
+                      key={resource.title}
+                      title={resource.title}
+                      description={resource.description}
+                      icon={resource.icon}
+                      color={resource.color}
+                      tags={resource.tags}
+                      url={resource.url}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {devLibraries.map((resource) => (
+                  <ResourceCard
+                    key={resource.title}
+                    {...resource}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
         
@@ -388,7 +468,7 @@ const Index = () => {
                   Ready to supercharge your development workflow?
                 </h2>
                 <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8">
-                  Join Softverse today and unlock the full potential of open source and collaborative development.
+                  Join softverse today and unlock the full potential of open source and collaborative development.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button size="lg" className="bg-white text-softverse-purple hover:bg-white/90">
