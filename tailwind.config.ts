@@ -74,6 +74,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				mono: ['"JetBrains Mono"', 'monospace'],
+				harabara: ['Harabara', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -39,13 +39,13 @@ const Index = () => {
       title: "Code Snippets",
       description: "Create, share and discover useful code snippets. Save time with reusable solutions to common problems.",
       icon: Code,
-      url: "#"
+      url: "/tools/code-snippets"
     },
     {
       title: "Project Management",
       description: "Manage your development projects with ease. Track progress, assign tasks, and meet deadlines.",
       icon: Folders,
-      url: "#"
+      url: "/tools/project-management"
     },
     {
       title: "Resource Library",
@@ -135,7 +135,7 @@ const Index = () => {
       title: "Code Snippet Manager",
       description: "Organize and search your code snippets with AI-powered search and tagging.",
       icon: Zap,
-      url: "#"
+      url: "/tools/code-snippets"
     },
     {
       title: "CI/CD Pipeline Designer",

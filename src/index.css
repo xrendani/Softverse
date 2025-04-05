@@ -1,5 +1,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@font-face {
+  font-family: 'Harabara';
+  src: url('/fonts/Harabara.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -46,6 +53,45 @@
     --sidebar-border: 240 10% 16%;
     --sidebar-ring: 262 84% 63%;
   }
+
+  .light-theme {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 262 84% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 199 92% 48%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 199 92% 57%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 262 84% 63%;
+
+    --sidebar-background: 0 0% 97%;
+    --sidebar-foreground: 240 10% 3.9%;
+    --sidebar-primary: 262 84% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 10% 90%;
+    --sidebar-accent-foreground: 240 10% 3.9%;
+    --sidebar-border: 240 10% 85%;
+    --sidebar-ring: 262 84% 63%;
+  }
 }
 
 @layer base {
@@ -55,6 +101,10 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-harabara;
   }
 }
 
@@ -71,4 +121,18 @@
 .feature-card-hover:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo animation */
+.logo-pulse {
+  animation: logo-pulse 3s infinite alternate;
+}
+
+@keyframes logo-pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
 }

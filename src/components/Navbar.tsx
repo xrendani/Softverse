@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Github, Search, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from './ThemeToggle';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -12,12 +14,16 @@ const Navbar = () => {
     <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <a href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-softverse-purple rounded-md flex items-center justify-center">
-              <span className="font-bold text-white text-lg">S</span>
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 relative">
+              <img 
+                src="/lovable-uploads/19de5f88-3989-4691-b590-64352cbcab60.png" 
+                alt="Softverse Logo" 
+                className="w-full h-full object-contain logo-pulse"
+              />
             </div>
-            <span className="font-bold text-xl tracking-tight text-foreground">Softverse</span>
-          </a>
+            <span className="font-harabara text-xl tracking-tight text-foreground">softverse</span>
+          </Link>
           <div className="hidden md:flex items-center ml-6 gap-6">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#code-snippets" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Code Snippets</a>
@@ -36,8 +42,12 @@ const Navbar = () => {
             />
           </div>
 
-          <Button variant="outline" size="icon">
-            <Github className="h-4 w-4" />
+          <ThemeToggle />
+
+          <Button variant="outline" size="icon" asChild>
+            <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
+              <Github className="h-4 w-4" />
+            </a>
           </Button>
           
           <Button className="bg-softverse-purple hover:bg-softverse-purple/90">
@@ -56,7 +66,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       <div className={cn(
         "md:hidden absolute z-50 w-full bg-card border-b border-border transition-all duration-300 ease-in-out overflow-hidden",
-        isMenuOpen ? "max-h-64" : "max-h-0"
+        isMenuOpen ? "max-h-96" : "max-h-0"
       )}>
         <div className="container py-4 space-y-4">
           <div className="space-y-2">
@@ -73,11 +83,14 @@ const Navbar = () => {
               className="w-full pl-8"
             />
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="w-1/2">
-              <Github className="h-4 w-4 mr-2" /> GitHub
+          <div className="flex flex-wrap gap-2">
+            <ThemeToggle />
+            <Button variant="outline" size="sm" asChild className="flex-1">
+              <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
+                <Github className="h-4 w-4 mr-2" /> GitHub
+              </a>
             </Button>
-            <Button className="w-1/2 bg-softverse-purple hover:bg-softverse-purple/90">
+            <Button className="flex-1 bg-softverse-purple hover:bg-softverse-purple/90">
               Get Started
             </Button>
           </div>

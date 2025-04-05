@@ -12,11 +12,19 @@ const Hero = () => {
       
       <div className="container relative z-10">
         <div className="text-center space-y-6 max-w-4xl mx-auto">
+          <div className="flex justify-center mb-6">
+            <img 
+              src="/lovable-uploads/19de5f88-3989-4691-b590-64352cbcab60.png" 
+              alt="Softverse Logo" 
+              className="w-24 h-24 object-contain logo-pulse"
+            />
+          </div>
+          
           <span className="inline-flex items-center rounded-full bg-softverse-purple/10 px-3 py-1 text-sm font-medium text-softverse-purple ring-1 ring-inset ring-softverse-purple/30">
             Now Open Source on GitHub
           </span>
           
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white">
+          <h1 className="text-4xl md:text-6xl font-harabara tracking-tight text-white">
             softverse <span className="text-softverse-purple">_</span>
           </h1>
           
@@ -26,7 +34,7 @@ const Hero = () => {
           
           <div className="flex flex-wrap justify-center items-center gap-4 mt-8">
             <Button size="lg" className="gap-2" asChild>
-              <a href="https://github.com/softverse/softverse" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
                 <span>View on GitHub</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
@@ -43,7 +51,7 @@ const Hero = () => {
             </div>
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-1.5 rounded-full bg-softverse-blue"></div>
-              <span>TypeScript/React Native</span>
+              <span>TypeScript/React</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
