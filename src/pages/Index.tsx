@@ -39,41 +39,49 @@ const Index = () => {
       title: "Code Snippets",
       description: "Create, share and discover useful code snippets. Save time with reusable solutions to common problems.",
       icon: Code,
+      url: "#"
     },
     {
       title: "Project Management",
       description: "Manage your development projects with ease. Track progress, assign tasks, and meet deadlines.",
       icon: Folders,
+      url: "#"
     },
     {
       title: "Resource Library",
       description: "Access a curated library of development resources, tutorials, and documentation.",
       icon: Library,
+      url: "#"
     },
     {
       title: "Secure Sharing",
       description: "Share your work with teammates or the community with granular permission controls.",
       icon: Lock,
+      url: "#"
     },
     {
       title: "Collaboration Tools",
       description: "Work together with built-in tools for code reviews, comments, and real-time collaboration.",
       icon: Share2,
+      url: "#"
     },
     {
       title: "Smart Suggestions",
       description: "Get intelligent suggestions and insights to optimize your code and workflow.",
       icon: Sparkles,
+      url: "#"
     },
     {
       title: "Universal Formatter & Linter",
       description: "Format and lint your code with customizable rules across multiple programming languages.",
       icon: Brush,
+      url: "#"
     },
     {
       title: "AI Code Reviewer",
       description: "Get smart suggestions for code optimizations and security vulnerability identification.",
       icon: Wand2,
+      url: "#"
     },
     {
       title: "Cross-platform Testing",
@@ -91,6 +99,7 @@ const Index = () => {
       title: "Dependency Scanner",
       description: "Scan your dependencies for vulnerabilities and get automated fix suggestions.",
       icon: ShieldAlert,
+      url: "#"
     },
     {
       title: "Schema Designer",
@@ -102,6 +111,7 @@ const Index = () => {
       title: "API Development Environment",
       description: "Build, mock, test, and document your APIs in a comprehensive development environment.",
       icon: Globe,
+      url: "#"
     },
     {
       title: "Performance Profiler",
@@ -119,11 +129,13 @@ const Index = () => {
       title: "Universal Package Manager",
       description: "Manage packages across multiple ecosystems (npm, pip, etc.) with a unified interface.",
       icon: PackageOpen,
+      url: "#"
     },
     {
       title: "Code Snippet Manager",
       description: "Organize and search your code snippets with AI-powered search and tagging.",
       icon: Zap,
+      url: "#"
     },
     {
       title: "CI/CD Pipeline Designer",
@@ -307,7 +319,7 @@ const Index = () => {
                   description={feature.description}
                   icon={feature.icon}
                   comingSoon={feature.comingSoon}
-                  url={feature.url || (feature.comingSoon ? undefined : "#")}
+                  url={feature.url}
                 />
               ))}
             </div>
