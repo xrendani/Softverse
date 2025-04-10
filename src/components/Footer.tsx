@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,14 +55,9 @@ const Footer = () => {
       <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 relative">
-              <img 
-                src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
-                alt="Softverse Logo" 
-                className="w-full h-full object-contain logo-enhanced"
-              />
-            </div>
-            <span className="font-harabara text-xl text-foreground">Softverse</span>
+            <span className="font-rubik text-xl font-bold text-foreground">
+              softverse<span className="text-softverse-purple">_</span>
+            </span>
           </div>
           <p className="text-sm text-muted-foreground">
             The everything app for developers.

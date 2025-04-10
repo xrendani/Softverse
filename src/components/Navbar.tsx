@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,14 +15,9 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 relative">
-              <img 
-                src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
-                alt="Softverse Logo" 
-                className="w-full h-full object-contain logo-pulse logo-enhanced"
-              />
-            </div>
-            <span className="font-harabara text-xl tracking-tight text-foreground">softverse</span>
+            <span className="font-rubik text-xl font-bold tracking-tight text-foreground">
+              softverse<span className="text-softverse-purple">_</span>
+            </span>
           </Link>
           <div className="hidden md:flex items-center ml-6 gap-6">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>

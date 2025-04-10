@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -13,11 +12,9 @@ const Hero = () => {
       <div className="container relative z-10">
         <div className="text-center space-y-6 max-w-4xl mx-auto">
           <div className="flex justify-center mb-6">
-            <img 
-              src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
-              alt="Softverse Logo" 
-              className="w-32 h-32 object-contain logo-pulse logo-enhanced" 
-            />
+            <div className="text-5xl font-rubik font-bold text-white">
+              softverse<span className="text-softverse-purple">_</span>
+            </div>
           </div>
           
           <span className="inline-flex items-center rounded-full bg-softverse-purple/10 px-3 py-1 text-sm font-medium text-softverse-purple ring-1 ring-inset ring-softverse-purple/30">
