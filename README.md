@@ -5,6 +5,8 @@
 
 aio_dev is a comprehensive platform that brings together essential developer tools, resources, and GitHub integration in one place. Built for developers by developers, it aims to streamline workflow and boost productivity.
 
+[screenshot](/public/screenshot-app.png)
+
 ## 🚀 Features
 
 **GitHub Integration:**
