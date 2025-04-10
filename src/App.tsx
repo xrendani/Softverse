@@ -2,12 +2,16 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { AppStateProvider } from "@/lib/app-state";
+
+// Pages
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import CodeSnippetManager from "./pages/tools/CodeSnippetManager";
-import ProjectManagement from "./pages/tools/ProjectManagement";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+import Dashboard from "./pages/app/Dashboard";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -15,19 +19,31 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/tools/code-snippets" element={<CodeSnippetManager />} />
-            <Route path="/tools/project-management" element={<ProjectManagement />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <AppStateProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Index />} />
+              
+              {/* Auth routes */}
+              <Route path="/app/login" element={<Login />} />
+              <Route path="/app/signup" element={<Signup />} />
+              
+              {/* App routes */}
+              <Route path="/app/dashboard" element={<Dashboard />} />
+              
+              {/* Redirect /app to dashboard if logged in */}
+              <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />
+              
+              {/* Catch-all route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AppStateProvider>
     </QueryClientProvider>
   );
 };

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,22 +24,25 @@ const Footer = () => {
     
     setIsSubmitting(true);
     
-    // In a real application, you would send this to your backend
-    // Here we'll simulate an API call with setTimeout
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Save to localStorage as a temporary solution
+      const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
+      subscribers.push({
+        email,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('subscribers', JSON.stringify(subscribers));
       
       toast({
         title: "Subscription successful!",
-        description: `${email} will receive updates about Softverse.`,
+        description: `${email} will receive updates about DevForge.`,
         variant: "default"
       });
       
       setEmail("");
       
       // In a production environment, you would send the email to your backend
-      console.log(`Subscription email: ${email} would be sent to rendaniman@outlook.com`);
+      console.log(`Subscription email: ${email} - would be sent to rendaniman@outlook.com`);
     } catch (error) {
       toast({
         title: "Subscription failed",
@@ -56,7 +60,7 @@ const Footer = () => {
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
             <span className="font-rubik text-xl font-bold text-foreground">
-              softverse<span className="text-softverse-purple">_</span>
+              devforge<span className="text-softverse-purple">_</span>
             </span>
           </div>
           <p className="text-sm text-muted-foreground">
@@ -66,7 +70,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-2">
             <Button variant="outline" size="icon" asChild>
-              <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </a>
@@ -78,15 +82,18 @@ const Footer = () => {
               </a>
             </Button>
           </div>
+          <p className="text-sm text-muted-foreground pt-2">
+            Built by Rendani Manugeni
+          </p>
         </div>
         
         <div className="space-y-4">
           <h3 className="text-sm font-medium">Platform</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-foreground">Features</a></li>
-            <li><a href="#" className="hover:text-foreground">Code Snippets</a></li>
-            <li><a href="#" className="hover:text-foreground">Projects</a></li>
-            <li><a href="#" className="hover:text-foreground">Resources</a></li>
+            <li><a href="#features" className="hover:text-foreground">Features</a></li>
+            <li><a href="#ai-tools" className="hover:text-foreground">AI Tools</a></li>
+            <li><a href="#projects" className="hover:text-foreground">Projects</a></li>
+            <li><a href="#resources" className="hover:text-foreground">Resources</a></li>
             <li><a href="#" className="hover:text-foreground">Community</a></li>
           </ul>
         </div>
@@ -133,7 +140,7 @@ const Footer = () => {
       
       <div className="container mt-8 border-t pt-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Softverse. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} DevForge. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-foreground">Terms</a>
             <a href="#" className="hover:text-foreground">Privacy</a>

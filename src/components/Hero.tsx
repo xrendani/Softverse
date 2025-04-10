@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -13,16 +14,16 @@ const Hero = () => {
         <div className="text-center space-y-6 max-w-4xl mx-auto">
           <div className="flex justify-center mb-6">
             <div className="text-5xl font-rubik font-bold text-white">
-              softverse<span className="text-softverse-purple">_</span>
+              devforge<span className="text-softverse-purple">_</span>
             </div>
           </div>
           
           <span className="inline-flex items-center rounded-full bg-softverse-purple/10 px-3 py-1 text-sm font-medium text-softverse-purple ring-1 ring-inset ring-softverse-purple/30">
-            Now Open Source on GitHub
+            Open Source Development Platform
           </span>
           
-          <h1 className="text-4xl md:text-6xl font-harabara tracking-tight text-white">
-            softverse <span className="text-softverse-purple">_</span>
+          <h1 className="text-4xl md:text-6xl font-rubik tracking-tight text-white">
+            devforge <span className="text-softverse-purple">_</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto font-rubik">
@@ -37,7 +38,7 @@ const Hero = () => {
               </a>
             </Button>
             <Button size="lg" variant="outline" className="bg-white/5 text-white border-white/20 hover:bg-white/10 hover:text-white">
-              Explore Tools
+              Get Started
             </Button>
           </div>
           
