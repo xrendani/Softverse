@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Github, Search, Menu, UserPlus, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from './ThemeToggle';
 import { Link } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAppState } from '@/lib/app-state';
@@ -19,7 +18,7 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center space-x-2">
             <span className="font-rubik text-xl font-bold tracking-tight text-foreground">
-              devforge<span className="text-softverse-purple">_</span>
+              aio_dev<span className="text-softverse-purple">_</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center ml-6 gap-6">
@@ -56,18 +55,22 @@ const Navbar = () => {
           </TooltipProvider>
           
           {isLoggedIn ? (
-            <Button className="bg-softverse-purple hover:bg-softverse-purple/90">
-              Dashboard
+            <Button className="bg-softverse-purple hover:bg-softverse-purple/90" asChild>
+              <Link to="/app/dashboard">Dashboard</Link>
             </Button>
           ) : (
             <div className="flex items-center gap-2">
-              <Button variant="outline" className="flex items-center gap-1" onClick={() => window.location.href = '/app/login'}>
-                <LogIn className="h-4 w-4" />
-                <span>Login</span>
+              <Button variant="outline" className="flex items-center gap-1" asChild>
+                <Link to="/app/login">
+                  <LogIn className="h-4 w-4" />
+                  <span>Login</span>
+                </Link>
               </Button>
-              <Button className="bg-softverse-purple hover:bg-softverse-purple/90 flex items-center gap-1" onClick={() => window.location.href = '/app/signup'}>
-                <UserPlus className="h-4 w-4" />
-                <span>Sign Up</span>
+              <Button className="bg-softverse-purple hover:bg-softverse-purple/90 flex items-center gap-1" asChild>
+                <Link to="/app/signup">
+                  <UserPlus className="h-4 w-4" />
+                  <span>Sign Up</span>
+                </Link>
               </Button>
             </div>
           )}
@@ -108,16 +111,20 @@ const Navbar = () => {
               </a>
             </Button>
             {isLoggedIn ? (
-              <Button className="flex-1 bg-softverse-purple hover:bg-softverse-purple/90">
-                Dashboard
+              <Button className="flex-1 bg-softverse-purple hover:bg-softverse-purple/90" asChild>
+                <Link to="/app/dashboard">Dashboard</Link>
               </Button>
             ) : (
               <>
-                <Button variant="outline" size="sm" className="flex-1" onClick={() => window.location.href = '/app/login'}>
-                  <LogIn className="h-4 w-4 mr-2" /> Login
+                <Button variant="outline" size="sm" className="flex-1" asChild>
+                  <Link to="/app/login">
+                    <LogIn className="h-4 w-4 mr-2" /> Login
+                  </Link>
                 </Button>
-                <Button className="flex-1 bg-softverse-purple hover:bg-softverse-purple/90" onClick={() => window.location.href = '/app/signup'}>
-                  <UserPlus className="h-4 w-4 mr-2" /> Sign Up
+                <Button className="flex-1 bg-softverse-purple hover:bg-softverse-purple/90" asChild>
+                  <Link to="/app/signup">
+                    <UserPlus className="h-4 w-4 mr-2" /> Sign Up
+                  </Link>
                 </Button>
               </>
             )}

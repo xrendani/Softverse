@@ -14,16 +14,16 @@ const Hero = () => {
         <div className="text-center space-y-6 max-w-4xl mx-auto">
           <div className="flex justify-center mb-6">
             <div className="text-5xl font-rubik font-bold text-white">
-              devforge<span className="text-softverse-purple">_</span>
+              aio_dev<span className="text-softverse-purple">_</span>
             </div>
           </div>
           
           <span className="inline-flex items-center rounded-full bg-softverse-purple/10 px-3 py-1 text-sm font-medium text-softverse-purple ring-1 ring-inset ring-softverse-purple/30">
-            Open Source Development Platform
+            All-in-One Developer Platform
           </span>
           
           <h1 className="text-4xl md:text-6xl font-rubik tracking-tight text-white">
-            devforge <span className="text-softverse-purple">_</span>
+            aio_dev <span className="text-softverse-purple">_</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto font-rubik">
@@ -32,7 +32,7 @@ const Hero = () => {
           
           <div className="flex flex-wrap justify-center items-center gap-4 mt-8">
             <Button size="lg" className="gap-2" asChild>
-              <a href="https://github.com/xrendani/softverse" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer">
                 <span>View on GitHub</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
@@ -57,8 +57,14 @@ const Hero = () => {
             </div>
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div>
-              <span>Modern Tech Stack</span>
+              <span>GitHub Integration</span>
             </div>
+          </div>
+          
+          <div className="mt-6 text-xs text-white/50">
+            Built by <a href="https://twitter.com/rendanimanugeni" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Rendani Manugeni</a> 
+            (<a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">GitHub</a>,
+            <a href="https://twitter.com/rendanimanugeni" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Twitter</a>)
           </div>
         </div>
       </div>

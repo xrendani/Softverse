@@ -14,7 +14,14 @@ import Signup from "./pages/auth/Signup";
 import Dashboard from "./pages/app/Dashboard";
 
 // Initialize QueryClient
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 const App = () => {
   return (

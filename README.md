@@ -1,23 +1,42 @@
 
-# softverse
+# aio_dev
 
-> The everything app for developers. Open source and Open code.
+> The everything app for developers. All in one platform for code, collaboration, and productivity.
 
-Softverse is a comprehensive platform that brings together essential developer tools, resources, and community features in one place. Built for developers by developers, it aims to streamline workflow and boost productivity.
-
-![Softverse Platform](https://raw.githubusercontent.com/softverse/softverse/main/public/banner.png)
+aio_dev is a comprehensive platform that brings together essential developer tools, resources, and GitHub integration in one place. Built for developers by developers, it aims to streamline workflow and boost productivity.
 
 ## 🚀 Features
 
-- **Universal Code Formatter & Linter**: Format and lint your code with customizable rules across multiple programming languages
-- **AI Code Reviewer**: Get smart suggestions for code optimizations and identify security vulnerabilities
-- **Dependency Scanner**: Scan your dependencies for vulnerabilities and get automated fix suggestions
-- **API Development Environment**: Build, mock, test, and document your APIs in one place
-- **Universal Package Manager**: Interface for multiple package ecosystems (npm, pip, etc.)
-- **Code Snippet Manager**: Organize and search your code snippets with AI-powered organization
-- **Resource Library**: Access a curated collection of developer resources and tutorials
-- **Project Management**: Track your projects and collaborate with team members
-- **GitHub Integration**: Sign in with GitHub and publish your code directly to repositories
+**GitHub Integration:**
+- Access repositories, issues, pull requests, and project boards
+- GitHub OAuth authentication
+- GitHub Actions integration for CI/CD workflows
+- Real-time updates via webhooks
+
+**Unified Dashboard:**
+- Aggregate activity across multiple repositories
+- Track pending reviews, assigned issues, and upcoming deadlines
+- Code quality trends and team productivity insights
+
+**Enhanced GitHub Tools:**
+- Advanced code search with semantic understanding
+- Automated dependency tracking and security vulnerability detection
+- AI-powered code review suggestions integrated into PR workflows
+
+**Collaboration Features:**
+- Real-time collaborative coding environments linked to GitHub repositories
+- Automated documentation generation
+- Integrated testing environments reporting results back to GitHub
+
+**Developer Productivity:**
+- Custom workflow automations beyond standard GitHub Actions
+- Intelligent issue prioritization and workload balancing
+- Code snippet library with GitHub Gists integration
+
+**Learning & Growth:**
+- Personalized skill development recommendations
+- Code challenges with automatic feedback
+- Project-specific onboarding guides for new team members
 
 ## 🛠️ Tech Stack
 
@@ -28,6 +47,8 @@ Softverse is a comprehensive platform that brings together essential developer t
 - [shadcn/ui](https://ui.shadcn.com/) - UI Components
 - [Lucide Icons](https://lucide.dev/) - Beautiful open source icons
 - [React Router](https://reactrouter.com/) - Routing
+- [TanStack Query](https://tanstack.com/query) - Data fetching and state management
+- [GitHub API](https://docs.github.com/en/rest) - GitHub integration
 
 ## 🚀 Getting Started
 
@@ -39,8 +60,8 @@ Softverse is a comprehensive platform that brings together essential developer t
 
 1. Clone the repository
    ```
-   git clone https://github.com/softverse/softverse.git
-   cd softverse
+   git clone https://github.com/xrendani/aio_dev.git
+   cd aio_dev
    ```
 
 2. Install dependencies
@@ -76,4 +97,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by the Softverse community.
+Built with ❤️ by [Rendani Manugeni](https://github.com/xrendani)
