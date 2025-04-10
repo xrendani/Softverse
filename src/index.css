@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap');
 @font-face {
   font-family: 'Harabara';
   src: url('/fonts/Harabara.ttf') format('truetype');
@@ -67,8 +67,8 @@
     --primary: 262 84% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 199 92% 48%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -100,7 +100,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-rubik;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -135,4 +135,18 @@
   100% {
     transform: scale(1.05);
   }
+}
+
+/* Make sure the theme works properly */
+.light-theme .code-block {
+  background-color: rgba(245, 245, 247, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #1A1F2C;
+}
+
+/* Enhance logo rendering */
+.logo-enhanced {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }

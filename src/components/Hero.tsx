@@ -16,7 +16,7 @@ const Hero = () => {
             <img 
               src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
               alt="Softverse Logo" 
-              className="w-28 h-28 object-contain logo-pulse"
+              className="w-32 h-32 object-contain logo-pulse logo-enhanced" 
             />
           </div>
           
@@ -28,7 +28,7 @@ const Hero = () => {
             softverse <span className="text-softverse-purple">_</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto font-rubik">
             The everything app for developers. All your tools in one platform: code, collaborate, and create amazing software.
           </p>
           

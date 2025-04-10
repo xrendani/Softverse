@@ -72,9 +72,10 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ['Rubik', 'Inter', 'sans-serif'],
 				mono: ['"JetBrains Mono"', 'monospace'],
 				harabara: ['Harabara', 'sans-serif'],
+				rubik: ['Rubik', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

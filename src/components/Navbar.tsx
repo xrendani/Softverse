@@ -20,7 +20,7 @@ const Navbar = () => {
               <img 
                 src="/lovable-uploads/98d08d38-92e3-426e-b372-d082d52b79af.png" 
                 alt="Softverse Logo" 
-                className="w-full h-full object-contain logo-pulse"
+                className="w-full h-full object-contain logo-pulse logo-enhanced"
               />
             </div>
             <span className="font-harabara text-xl tracking-tight text-foreground">softverse</span>
@@ -30,6 +30,7 @@ const Navbar = () => {
             <a href="#code-snippets" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Code Snippets</a>
             <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Projects</a>
             <a href="#resources" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Resources</a>
+            <a href="#ai-tools" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Tools</a>
           </div>
         </div>
         
@@ -84,6 +85,7 @@ const Navbar = () => {
             <a href="#code-snippets" className="block px-2 py-1 hover:bg-muted/20 rounded">Code Snippets</a>
             <a href="#projects" className="block px-2 py-1 hover:bg-muted/20 rounded">Projects</a>
             <a href="#resources" className="block px-2 py-1 hover:bg-muted/20 rounded">Resources</a>
+            <a href="#ai-tools" className="block px-2 py-1 hover:bg-muted/20 rounded">AI Tools</a>
           </div>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

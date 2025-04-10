@@ -1,3 +1,4 @@
+
 import { 
   ArrowUpRight, 
   Code, 
@@ -28,6 +29,7 @@ import FeatureCard from "@/components/FeatureCard";
 import CodeSnippetCard from "@/components/CodeSnippetCard";
 import ProjectCard from "@/components/ProjectCard";
 import ResourceCard from "@/components/ResourceCard";
+import AiFeatures from "@/components/AiFeatures";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { fetchPopularDevLibs, GithubRepo, repoToResourceCard } from "@/lib/github-api";
@@ -326,6 +328,9 @@ const Index = () => {
           </div>
         </section>
         
+        {/* AI Features Section */}
+        <AiFeatures />
+        
         {/* Code Snippets Section */}
         <section id="code-snippets" className="py-20 bg-background/50">
           <div className="container">
@@ -339,7 +344,7 @@ const Index = () => {
                 </p>
               </div>
               <Button className="flex items-center gap-1" asChild>
-                <a href="#">
+                <a href="/tools/code-snippets">
                   <span>View all snippets</span>
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
@@ -374,7 +379,7 @@ const Index = () => {
                 </p>
               </div>
               <Button className="flex items-center gap-1" asChild>
-                <a href="#">
+                <a href="/tools/project-management">
                   <span>Explore projects</span>
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
