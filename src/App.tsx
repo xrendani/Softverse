@@ -15,6 +15,11 @@ import Dashboard from "./pages/app/Dashboard";
 import Profile from "./pages/app/Profile";
 import Settings from "./pages/app/Settings";
 
+// Tool Pages
+import ResourceLibrary from "./pages/tools/ResourceLibrary";
+import GitHubIntegration from "./pages/tools/GitHubIntegration";
+import SystemResources from "./pages/tools/SystemResources";
+
 // Initialize QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,8 +51,14 @@ const App = () => {
               <Route path="/app/profile" element={<Profile />} />
               <Route path="/app/settings" element={<Settings />} />
               
+              {/* Tool routes */}
+              <Route path="/tools/resources" element={<ResourceLibrary />} />
+              <Route path="/tools/github" element={<GitHubIntegration />} />
+              <Route path="/tools/system" element={<SystemResources />} />
+              
               {/* Redirect /app to dashboard if logged in */}
               <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />
+              <Route path="/tools" element={<Navigate to="/tools/resources" replace />} />
               
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />

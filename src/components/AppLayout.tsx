@@ -46,12 +46,12 @@ type AppLayoutProps = {
   children: React.ReactNode;
 };
 
-type NavItem = {
+interface NavItem {
   label: string;
   icon: LucideIcon;
   path: string;
   comingSoon?: boolean;
-};
+}
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   const { logout, user, isLoggedIn, isLoading } = useAppState();

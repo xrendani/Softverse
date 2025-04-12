@@ -1,514 +1,676 @@
-import React, { useState } from 'react';
-import { useAppState } from '@/lib/app-state';
-import AppLayout from '@/components/AppLayout';
-import { motion } from 'framer-motion';
-import { 
-  Moon, 
-  Sun, 
-  Monitor, 
-  BellRing, 
-  BellOff, 
-  Save, 
-  RefreshCw,
-  LayoutGrid,
-  Eye,
-  Code,
-  ListFilter,
-  Laptop,
-  Wrench,
-  FileCode,
-  Languages,
-  PackageOpen
-} from 'lucide-react';
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/components/ui/use-toast';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Slider } from '@/components/ui/slider';
+
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { toast } from "sonner";
+import { useAppState } from "@/lib/app-state";
+import AppLayout from "@/components/AppLayout";
+import { AlertTriangle, CheckCircle, Github, RefreshCw, Save, Shield, X } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Settings = () => {
-  const { user, updateUser } = useAppState();
-  const { toast } = useToast();
-  const [isSaving, setIsSaving] = useState(false);
+  const { user } = useAppState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("account");
   
-  // Theme settings
-  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>(user?.settings?.theme || 'dark');
+  // Account settings
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [avatar, setAvatar] = useState("");
   
   // Notification settings
-  const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(user?.settings?.notifications || true);
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [pushNotifications, setPushNotifications] = useState(true);
+  const [newFeatures, setNewFeatures] = useState(true);
+  const [securityAlerts, setSecurityAlerts] = useState(true);
   
-  // Editor settings
-  const [fontSize, setFontSize] = useState(user?.settings?.editor?.fontSize || 14);
-  const [tabSize, setTabSize] = useState(user?.settings?.editor?.tabSize || 2);
-  const [autoSave, setAutoSave] = useState<boolean>(user?.settings?.editor?.autoSave || true);
+  // Appearance settings
+  const [themeMode, setThemeMode] = useState("system");
+  const [accentColor, setAccentColor] = useState("purple");
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [fontFamily, setFontFamily] = useState("system");
   
-  // Language preferences
-  const [preferredLanguage, setPreferredLanguage] = useState('typescript');
-  const [syntaxHighlighting, setSyntaxHighlighting] = useState<boolean>(true);
-  const [lineNumbers, setLineNumbers] = useState<boolean>(true);
+  // Security settings
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const [sessionExpiry, setSessionExpiry] = useState("7days");
+  const [ipRestrictions, setIpRestrictions] = useState(false);
+  const [loginNotifications, setLoginNotifications] = useState(true);
   
-  // Handle settings save
-  const handleSaveSettings = () => {
-    setIsSaving(true);
+  // Integration settings
+  const [githubConnected, setGithubConnected] = useState(false);
+  const [githubUsername, setGithubUsername] = useState("");
+  
+  // Storage settings
+  const [storageUsed, setStorageUsed] = useState(0); // in MB
+  const [storageLimit, setStorageLimit] = useState(1000); // in MB
+  const [autoCleanup, setAutoCleanup] = useState(false);
+  
+  const handleSaveSettings = (section: string) => {
+    setIsLoading(true);
     
     // Simulate API call
     setTimeout(() => {
-      updateUser({
-        settings: {
-          theme,
-          notifications: notificationsEnabled,
-          editor: {
-            fontSize,
-            tabSize,
-            autoSave,
-          },
-        },
-      });
-      
-      toast({
-        title: "Settings saved",
-        description: "Your preferences have been updated successfully",
-      });
-      
-      setIsSaving(false);
+      setIsLoading(false);
+      toast.success(`${section} settings saved successfully!`);
     }, 1000);
   };
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        staggerChildren: 0.1
-      }
-    }
+  
+  const handleConnectGithub = () => {
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      setGithubConnected(true);
+      setGithubUsername("xrendani");
+      toast.success("GitHub account connected successfully!");
+    }, 1500);
   };
   
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+  const handleDisconnectGithub = () => {
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      setGithubConnected(false);
+      setGithubUsername("");
+      toast.success("GitHub account disconnected successfully!");
+    }, 1000);
   };
-
-  if (!user) return null;
-
+  
+  const handleSetupTwoFactor = () => {
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      setTwoFactorEnabled(true);
+      toast.success("Two-factor authentication set up successfully!");
+    }, 2000);
+  };
+  
+  const handleDisableTwoFactor = () => {
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      setTwoFactorEnabled(false);
+      toast.success("Two-factor authentication disabled.");
+    }, 1500);
+  };
+  
+  // Initialize form with user data
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email || "");
+      setUsername(user.username || "");
+      setAvatar(user.avatar || "");
+    }
+    
+    // Simulate storage calculation
+    setStorageUsed(Math.floor(Math.random() * 900));
+  }, [user]);
+  
+  const getStoragePercentage = () => {
+    return Math.round((storageUsed / storageLimit) * 100);
+  };
+  
+  const getStorageStatus = () => {
+    const percentage = getStoragePercentage();
+    if (percentage < 70) return "text-green-500";
+    if (percentage < 90) return "text-amber-500";
+    return "text-red-500";
+  };
+  
   return (
     <AppLayout>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="space-y-6"
-      >
-        <motion.div variants={itemVariants}>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Settings</h1>
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
           <p className="text-muted-foreground">
-            Customize your development environment
+            Manage your account settings and preferences.
           </p>
-        </motion.div>
+        </div>
         
-        <Tabs defaultValue="appearance" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="appearance">Appearance</TabsTrigger>
-            <TabsTrigger value="editor">Editor</TabsTrigger>
+        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          <TabsList className="w-full sm:w-auto flex flex-wrap justify-start border bg-card">
+            <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            <TabsTrigger value="language">Language</TabsTrigger>
+            <TabsTrigger value="appearance">Appearance</TabsTrigger>
+            <TabsTrigger value="security">Security</TabsTrigger>
+            <TabsTrigger value="integrations">Integrations</TabsTrigger>
+            <TabsTrigger value="storage">Storage</TabsTrigger>
           </TabsList>
           
-          {/* Appearance Tab */}
-          <TabsContent value="appearance" className="space-y-4">
-            <motion.div variants={itemVariants}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Eye className="h-5 w-5" /> Theme Settings
-                  </CardTitle>
-                  <CardDescription>
-                    Customize the appearance of the application
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-2">
-                    <Label>Theme Mode</Label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <Button
-                        type="button"
-                        variant={theme === 'light' ? 'default' : 'outline'}
-                        className={`${
-                          theme === 'light' 
-                            ? 'bg-softverse-purple hover:bg-softverse-purple/90' 
-                            : ''
-                        } justify-start`}
-                        onClick={() => setTheme('light')}
-                      >
-                        <Sun className="h-4 w-4 mr-2" />
-                        Light
-                      </Button>
-                      
-                      <Button
-                        type="button"
-                        variant={theme === 'dark' ? 'default' : 'outline'}
-                        className={`${
-                          theme === 'dark' 
-                            ? 'bg-softverse-purple hover:bg-softverse-purple/90' 
-                            : ''
-                        } justify-start`}
-                        onClick={() => setTheme('dark')}
-                      >
-                        <Moon className="h-4 w-4 mr-2" />
-                        Dark
-                      </Button>
-                      
-                      <Button
-                        type="button"
-                        variant={theme === 'system' ? 'default' : 'outline'}
-                        className={`${
-                          theme === 'system' 
-                            ? 'bg-softverse-purple hover:bg-softverse-purple/90' 
-                            : ''
-                        } justify-start`}
-                        onClick={() => setTheme('system')}
-                      >
-                        <Monitor className="h-4 w-4 mr-2" />
-                        System
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <Separator />
-                  
+          {/* Account Settings */}
+          <TabsContent value="account" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Your Profile</CardTitle>
+                <CardDescription>
+                  Manage your account information and profile details
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_150px] gap-6">
                   <div className="space-y-4">
-                    <Label>Layout Preferences</Label>
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="flex items-center space-x-2">
-                          <LayoutGrid className="h-4 w-4 text-muted-foreground" />
-                          <Label htmlFor="compact-layout">Compact Layout</Label>
-                        </div>
-                        <Switch 
-                          id="compact-layout" 
-                          onCheckedChange={() => {
-                            toast({
-                              description: "Layout preference saved",
-                            });
-                          }}
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="flex items-center space-x-2">
-                          <Laptop className="h-4 w-4 text-muted-foreground" />
-                          <Label htmlFor="dense-sidebar">Dense Sidebar</Label>
-                        </div>
-                        <Switch 
-                          id="dense-sidebar" 
-                          onCheckedChange={() => {
-                            toast({
-                              description: "Sidebar preference saved",
-                            });
-                          }}
-                        />
-                      </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="username">Username</Label>
+                      <Input
+                        id="username"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                  
+                  <div className="flex flex-col items-center justify-start space-y-3">
+                    <Avatar className="h-24 w-24">
+                      <AvatarImage src={avatar} />
+                      <AvatarFallback className="text-2xl bg-softverse-purple/20 text-softverse-purple">
+                        {username?.charAt(0).toUpperCase() || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <Button variant="outline" className="w-full text-xs" size="sm">
+                      Change Avatar
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">Cancel</Button>
+                <Button onClick={() => handleSaveSettings("Account")} disabled={isLoading}>
+                  {isLoading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                  Save Changes
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Password</CardTitle>
+                <CardDescription>
+                  Change your password or reset it if you've forgotten it
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="current-password">Current Password</Label>
+                  <Input id="current-password" type="password" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="new-password">New Password</Label>
+                  <Input id="new-password" type="password" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-password">Confirm Password</Label>
+                  <Input id="confirm-password" type="password" />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    toast.success("Password updated successfully!");
+                  }}
+                >
+                  Update Password
+                </Button>
+              </CardFooter>
+            </Card>
           </TabsContent>
           
-          {/* Editor Tab */}
-          <TabsContent value="editor" className="space-y-4">
-            <motion.div variants={itemVariants}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Code className="h-5 w-5" /> Editor Preferences
-                  </CardTitle>
-                  <CardDescription>
-                    Customize your coding environment
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <Label htmlFor="font-size">Font Size: {fontSize}px</Label>
-                      <span className="text-sm text-muted-foreground">{fontSize}px</span>
-                    </div>
-                    <Slider
-                      id="font-size"
-                      min={10}
-                      max={24}
-                      step={1}
-                      value={[fontSize]}
-                      onValueChange={(value) => setFontSize(value[0])}
-                      className="w-full"
-                    />
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <Label htmlFor="tab-size">Tab Size</Label>
-                    <Select
-                      value={tabSize.toString()}
-                      onValueChange={(value) => setTabSize(parseInt(value))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select tab size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="2">2 spaces</SelectItem>
-                        <SelectItem value="4">4 spaces</SelectItem>
-                        <SelectItem value="8">8 spaces</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <Separator />
-                  
-                  <div className="space-y-4">
-                    <Label>Editor Features</Label>
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="flex items-center space-x-2">
-                          <Save className="h-4 w-4 text-muted-foreground" />
-                          <Label htmlFor="auto-save">Auto Save</Label>
-                        </div>
-                        <Switch 
-                          id="auto-save" 
-                          checked={autoSave}
-                          onCheckedChange={(checked: boolean) => setAutoSave(checked)}
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="flex items-center space-x-2">
-                          <ListFilter className="h-4 w-4 text-muted-foreground" />
-                          <Label htmlFor="line-numbers">Line Numbers</Label>
-                        </div>
-                        <Switch 
-                          id="line-numbers" 
-                          checked={lineNumbers}
-                          onCheckedChange={(checked: boolean) => setLineNumbers(checked)}
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="flex items-center space-x-2">
-                          <FileCode className="h-4 w-4 text-muted-foreground" />
-                          <Label htmlFor="syntax-highlighting">Syntax Highlighting</Label>
-                        </div>
-                        <Switch 
-                          id="syntax-highlighting" 
-                          checked={syntaxHighlighting}
-                          onCheckedChange={(checked: boolean) => setSyntaxHighlighting(checked)}
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="flex items-center space-x-2">
-                          <Wrench className="h-4 w-4 text-muted-foreground" />
-                          <Label htmlFor="format-on-save">Format on Save</Label>
-                        </div>
-                        <Switch id="format-on-save" defaultChecked />
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </TabsContent>
-          
-          {/* Notifications Tab */}
-          <TabsContent value="notifications" className="space-y-4">
-            <motion.div variants={itemVariants}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BellRing className="h-5 w-5" /> Notification Settings
-                  </CardTitle>
-                  <CardDescription>
-                    Manage your notification preferences
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
+          {/* Notification Settings */}
+          <TabsContent value="notifications" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Notification Preferences</CardTitle>
+                <CardDescription>Configure how you receive notifications</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="notifications">Enable Notifications</Label>
+                      <Label className="text-base">Email Notifications</Label>
                       <p className="text-sm text-muted-foreground">
-                        Receive notifications about activity and updates
+                        Receive notifications via email
                       </p>
                     </div>
-                    <Switch
-                      id="notifications"
-                      checked={notificationsEnabled}
-                      onCheckedChange={(checked: boolean) => setNotificationsEnabled(checked)}
+                    <Switch 
+                      checked={emailNotifications} 
+                      onCheckedChange={setEmailNotifications} 
                     />
                   </div>
-                  
                   <Separator />
-                  
-                  <div className="space-y-4">
-                    <Label>Notification Types</Label>
-                    
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="space-y-0.5">
-                          <Label className="text-base" htmlFor="project-updates">Project Updates</Label>
-                          <p className="text-sm text-muted-foreground">
-                            Get notified about changes to your projects
-                          </p>
-                        </div>
-                        <Switch 
-                          id="project-updates" 
-                          disabled={!notificationsEnabled}
-                          defaultChecked 
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="space-y-0.5">
-                          <Label className="text-base" htmlFor="collaboration">Collaboration</Label>
-                          <p className="text-sm text-muted-foreground">
-                            Get notified about comments and mentions
-                          </p>
-                        </div>
-                        <Switch 
-                          id="collaboration" 
-                          disabled={!notificationsEnabled}
-                          defaultChecked 
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="space-y-0.5">
-                          <Label className="text-base" htmlFor="system-updates">System Updates</Label>
-                          <p className="text-sm text-muted-foreground">
-                            Get notified about new features and updates
-                          </p>
-                        </div>
-                        <Switch 
-                          id="system-updates" 
-                          disabled={!notificationsEnabled}
-                          defaultChecked 
-                        />
-                      </div>
-                      
-                      <div className="flex items-center justify-between rounded-md border p-3">
-                        <div className="space-y-0.5">
-                          <Label className="text-base" htmlFor="marketing">Marketing</Label>
-                          <p className="text-sm text-muted-foreground">
-                            Receive promotional emails and offers
-                          </p>
-                        </div>
-                        <Switch 
-                          id="marketing" 
-                          disabled={!notificationsEnabled}
-                        />
-                      </div>
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">Push Notifications</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Receive notifications on your device
+                      </p>
                     </div>
+                    <Switch 
+                      checked={pushNotifications} 
+                      onCheckedChange={setPushNotifications} 
+                    />
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                  <Separator />
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">New Features</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Get notified about new features and updates
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={newFeatures} 
+                      onCheckedChange={setNewFeatures} 
+                    />
+                  </div>
+                  <Separator />
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">Security Alerts</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Receive notifications about security issues
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={securityAlerts} 
+                      onCheckedChange={setSecurityAlerts} 
+                    />
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() => handleSaveSettings("Notification")}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  Save Preferences
+                </Button>
+              </CardFooter>
+            </Card>
           </TabsContent>
           
-          {/* Language Tab */}
-          <TabsContent value="language" className="space-y-4">
-            <motion.div variants={itemVariants}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Languages className="h-5 w-5" /> Language Preferences
-                  </CardTitle>
-                  <CardDescription>
-                    Set your preferred programming languages and tools
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-3">
-                    <Label htmlFor="default-language">Default Programming Language</Label>
-                    <Select
-                      value={preferredLanguage}
-                      onValueChange={setPreferredLanguage}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select language" />
+          {/* Appearance Settings */}
+          <TabsContent value="appearance" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Appearance</CardTitle>
+                <CardDescription>Customize how the application looks</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="theme">Theme Mode</Label>
+                    <Select value={themeMode} onValueChange={setThemeMode}>
+                      <SelectTrigger id="theme">
+                        <SelectValue placeholder="Select theme" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="typescript">TypeScript</SelectItem>
-                        <SelectItem value="javascript">JavaScript</SelectItem>
-                        <SelectItem value="python">Python</SelectItem>
-                        <SelectItem value="go">Go</SelectItem>
-                        <SelectItem value="rust">Rust</SelectItem>
+                        <SelectItem value="light">Light</SelectItem>
+                        <SelectItem value="dark">Dark</SelectItem>
+                        <SelectItem value="system">System</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="accent-color">Accent Color</Label>
+                    <Select value={accentColor} onValueChange={setAccentColor}>
+                      <SelectTrigger id="accent-color">
+                        <SelectValue placeholder="Select accent color" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="purple">Purple</SelectItem>
+                        <SelectItem value="blue">Blue</SelectItem>
+                        <SelectItem value="green">Green</SelectItem>
+                        <SelectItem value="red">Red</SelectItem>
+                        <SelectItem value="orange">Orange</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="font-family">Font Family</Label>
+                    <Select value={fontFamily} onValueChange={setFontFamily}>
+                      <SelectTrigger id="font-family">
+                        <SelectValue placeholder="Select font family" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="system">System</SelectItem>
+                        <SelectItem value="sans">Sans-serif</SelectItem>
+                        <SelectItem value="serif">Serif</SelectItem>
+                        <SelectItem value="mono">Monospace</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="flex items-center justify-between pt-2">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">Reduced Motion</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Reduce animations and effects
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={reducedMotion} 
+                      onCheckedChange={setReducedMotion} 
+                    />
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() => handleSaveSettings("Appearance")}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  Save Appearance
+                </Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          
+          {/* Security Settings */}
+          <TabsContent value="security" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Security Settings</CardTitle>
+                <CardDescription>Manage your account security</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">Two-Factor Authentication</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Secure your account with two-factor authentication
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      {twoFactorEnabled ? (
+                        <div className="flex items-center mr-2 text-green-500 text-sm">
+                          <CheckCircle className="h-4 w-4 mr-1" />
+                          Enabled
+                        </div>
+                      ) : (
+                        <div className="flex items-center mr-2 text-amber-500 text-sm">
+                          <AlertTriangle className="h-4 w-4 mr-1" />
+                          Disabled
+                        </div>
+                      )}
+                      <Button
+                        variant={twoFactorEnabled ? "destructive" : "default"}
+                        size="sm"
+                        onClick={twoFactorEnabled ? handleDisableTwoFactor : handleSetupTwoFactor}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <RefreshCw className="h-4 w-4 animate-spin" />
+                        ) : twoFactorEnabled ? (
+                          "Disable"
+                        ) : (
+                          "Enable"
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                  <Separator />
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="session-expiry">Session Expiry</Label>
+                    <Select value={sessionExpiry} onValueChange={setSessionExpiry}>
+                      <SelectTrigger id="session-expiry">
+                        <SelectValue placeholder="Select session expiry" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1day">1 Day</SelectItem>
+                        <SelectItem value="7days">7 Days</SelectItem>
+                        <SelectItem value="30days">30 Days</SelectItem>
+                        <SelectItem value="90days">90 Days</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
                   <Separator />
                   
-                  <div className="space-y-4">
-                    <Label>Package Manager</Label>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                      <div className="flex flex-col items-center justify-center rounded-md border border-border p-3 hover:bg-muted/30 cursor-pointer">
-                        <PackageOpen className="h-8 w-8 mb-2 text-yellow-500" />
-                        <span className="text-sm font-medium">npm</span>
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">IP Restrictions</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Limit account access to specific IP addresses
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={ipRestrictions} 
+                      onCheckedChange={setIpRestrictions} 
+                    />
+                  </div>
+                  
+                  <Separator />
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">Login Notifications</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Get notified when someone logs into your account
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={loginNotifications} 
+                      onCheckedChange={setLoginNotifications} 
+                    />
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() => handleSaveSettings("Security")}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Shield className="mr-2 h-4 w-4" />}
+                  Save Security Settings
+                </Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          
+          {/* Integrations Settings */}
+          <TabsContent value="integrations" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Connected Services</CardTitle>
+                <CardDescription>Manage third-party services and integrations</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-black p-2 rounded-md">
+                        <Github className="h-6 w-6 text-white" />
                       </div>
-                      
-                      <div className="flex flex-col items-center justify-center rounded-md border border-border p-3 hover:bg-muted/30 cursor-pointer">
-                        <PackageOpen className="h-8 w-8 mb-2 text-blue-500" />
-                        <span className="text-sm font-medium">yarn</span>
-                      </div>
-                      
-                      <div className="flex flex-col items-center justify-center rounded-md border border-border p-3 hover:bg-muted/30 cursor-pointer">
-                        <PackageOpen className="h-8 w-8 mb-2 text-orange-500" />
-                        <span className="text-sm font-medium">pnpm</span>
+                      <div>
+                        <h3 className="text-base font-medium mb-1">GitHub</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {githubConnected
+                            ? `Connected to ${githubUsername}`
+                            : "Connect to your GitHub account"}
+                        </p>
                       </div>
                     </div>
+                    <div>
+                      {githubConnected ? (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleDisconnectGithub}
+                          disabled={isLoading}
+                          className="w-full sm:w-auto"
+                        >
+                          {isLoading ? (
+                            <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          ) : (
+                            <X className="mr-2 h-4 w-4" />
+                          )}
+                          Disconnect
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleConnectGithub}
+                          disabled={isLoading}
+                          className="w-full sm:w-auto"
+                        >
+                          {isLoading ? (
+                            <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          ) : (
+                            <Github className="mr-2 h-4 w-4" />
+                          )}
+                          Connect
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                  
+                  <Separator />
+                  
+                  <Alert>
+                    <AlertTitle>Coming Soon</AlertTitle>
+                    <AlertDescription>
+                      Additional integrations will be available in future updates.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* Storage Settings */}
+          <TabsContent value="storage" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Storage Usage</CardTitle>
+                <CardDescription>Manage your storage space and data</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-sm font-medium">
+                        {storageUsed} MB of {storageLimit} MB used
+                      </span>
+                      <span className={`text-sm font-medium ${getStorageStatus()}`}>
+                        {getStoragePercentage()}%
+                      </span>
+                    </div>
+                    <Progress value={getStoragePercentage()} className="h-2" />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                    <Card className="bg-card/50">
+                      <CardContent className="pt-6">
+                        <div className="text-center">
+                          <p className="text-muted-foreground text-sm mb-1">Projects</p>
+                          <p className="text-2xl font-bold">{Math.round(storageUsed * 0.4)} MB</p>
+                          <p className="text-xs text-muted-foreground mt-1">40% of storage</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="bg-card/50">
+                      <CardContent className="pt-6">
+                        <div className="text-center">
+                          <p className="text-muted-foreground text-sm mb-1">Templates</p>
+                          <p className="text-2xl font-bold">{Math.round(storageUsed * 0.25)} MB</p>
+                          <p className="text-xs text-muted-foreground mt-1">25% of storage</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="bg-card/50">
+                      <CardContent className="pt-6">
+                        <div className="text-center">
+                          <p className="text-muted-foreground text-sm mb-1">Media</p>
+                          <p className="text-2xl font-bold">{Math.round(storageUsed * 0.35)} MB</p>
+                          <p className="text-xs text-muted-foreground mt-1">35% of storage</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <Separator className="my-2" />
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label className="text-base">Automatic Cleanup</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Automatically remove unused files and resources
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={autoCleanup} 
+                      onCheckedChange={setAutoCleanup} 
+                    />
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    toast({
+                      title: "Cleanup Started",
+                      description: "Scanning for unused files...",
+                    });
+                    setTimeout(() => {
+                      const cleaned = Math.floor(Math.random() * 50) + 10;
+                      setStorageUsed((prev) => Math.max(0, prev - cleaned));
+                      toast.success(`Cleaned up ${cleaned} MB of storage space.`);
+                    }, 2000);
+                  }}
+                >
+                  Clean Up Now
+                </Button>
+                <Button
+                  onClick={() => handleSaveSettings("Storage")}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  Save Settings
+                </Button>
+              </CardFooter>
+            </Card>
           </TabsContent>
         </Tabs>
-        
-        <motion.div variants={itemVariants} className="flex justify-end mt-4">
-          <Button 
-            onClick={handleSaveSettings}
-            className="bg-softverse-purple hover:bg-softverse-purple/90"
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <>
-                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                Saving Settings
-              </>
-            ) : (
-              <>
-                <Save className="h-4 w-4 mr-2" />
-                Save Settings
-              </>
-            )}
-          </Button>
-        </motion.div>
-      </motion.div>
+      </div>
     </AppLayout>
   );
 };

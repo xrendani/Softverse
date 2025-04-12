@@ -2,12 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Github, Search, Menu, UserPlus, LogIn, X, Twitter } from "lucide-react";
+import { Github, Search, Menu, UserPlus, LogIn, X, Twitter, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAppState } from '@/lib/app-state';
 import { motion } from 'framer-motion';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,6 +57,26 @@ const Navbar = () => {
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#ai-tools" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Tools</a>
             <a href="#resources" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Resources</a>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 p-0">
+                  <span>Tools</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Developer Tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/tools/resources">Resource Library</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/tools/github">GitHub Integration</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/tools/system">System Resources</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         
@@ -104,6 +132,27 @@ const Navbar = () => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Follow on X (Twitter)</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.25 }}
+          >
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="icon" asChild>
+                    <Link to="/tools/system">
+                      <Wrench className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Developer Tools</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -167,6 +216,15 @@ const Navbar = () => {
             <a href="#features" className="block px-2 py-1 hover:bg-muted/20 rounded">Features</a>
             <a href="#ai-tools" className="block px-2 py-1 hover:bg-muted/20 rounded">AI Tools</a>
             <a href="#resources" className="block px-2 py-1 hover:bg-muted/20 rounded">Resources</a>
+            <Link to="/tools/resources" className="block px-2 py-1 hover:bg-muted/20 rounded">
+              Resource Library
+            </Link>
+            <Link to="/tools/github" className="block px-2 py-1 hover:bg-muted/20 rounded">
+              GitHub Integration
+            </Link>
+            <Link to="/tools/system" className="block px-2 py-1 hover:bg-muted/20 rounded">
+              System Resources
+            </Link>
           </div>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
