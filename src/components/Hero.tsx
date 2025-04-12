@@ -1,7 +1,7 @@
-
 import { ArrowRight, Github, Code, GitBranch, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -59,16 +59,15 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Button size="lg" variant="default" className="gap-2 bg-gradient-to-r from-softverse-purple to-softverse-blue hover:opacity-90" asChild>
-              <a href="/app/signup">
+              <Link to="/app/signup">
                 <span>Get Started Free</span>
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </Button>
             <Button size="lg" variant="outline" className="bg-white/5 text-white border-white/20 hover:bg-white/10 hover:text-white gap-2" asChild>
-              <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer">
-                <Github className="h-4 w-4" />
-                <span>Star on GitHub</span>
-              </a>
+              <Link to="/app/login">
+                <span>Login</span>
+              </Link>
             </Button>
           </motion.div>
           
@@ -137,9 +136,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            Built by <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Rendani Manugeni</a> 
-            (<a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">GitHub</a>,
-            <a href="https://twitter.com/rendanimanugeni" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Twitter</a>)
+            Built by <a href="https://x.com/rendanimanugeni" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Rendani Manugeni</a>
           </motion.div>
         </div>
       </div>
