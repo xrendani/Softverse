@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
@@ -19,6 +18,7 @@ import {
   Activity,
   Plus,
   ChevronDown,
+  type LucideIcon
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -48,7 +48,7 @@ type AppLayoutProps = {
 
 type NavItem = {
   label: string;
-  icon: React.ComponentType<{ size?: number }>;
+  icon: LucideIcon;
   path: string;
   comingSoon?: boolean;
 };
@@ -62,7 +62,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [notifications, setNotifications] = useState(3);
 
-  // Navigation items
   const navItems: NavItem[] = [
     { label: 'Dashboard', icon: Home, path: '/app/dashboard' },
     { label: 'Projects', icon: Box, path: '/app/projects' },
@@ -72,24 +71,20 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     { label: 'Activity', icon: Activity, path: '/app/activity' },
   ];
 
-  // Settings and profile items
   const settingsItems: NavItem[] = [
     { label: 'Profile', icon: User, path: '/app/profile' },
     { label: 'Settings', icon: Settings, path: '/app/settings' },
   ];
 
-  // Check if the current path is the active path
   const isActivePath = (path: string) => {
     return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
 
-  // Handle logout
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
-  // Check if user is on mobile
   useEffect(() => {
     setIsMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -98,14 +93,12 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Redirect if not logged in
   useEffect(() => {
     if (isMounted && !isLoading && !isLoggedIn) {
       navigate('/app/login');
     }
   }, [isLoggedIn, isLoading, isMounted, navigate]);
 
-  // If still loading or not mounted, show a loading state
   if (isLoading || !isMounted) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
@@ -119,11 +112,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* App Header */}
       <header className="border-b border-border h-16 flex items-center px-4 md:px-6 bg-background z-50 sticky top-0">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-4">
-            {/* Mobile menu trigger */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
@@ -204,7 +195,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               </SheetContent>
             </Sheet>
             
-            {/* Logo */}
             <Link to="/app/dashboard" className="flex items-center space-x-2">
               <span className="font-rubik text-xl font-bold tracking-tight text-foreground">
                 aio_dev<span className="text-softverse-purple">_</span>
@@ -212,14 +202,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             </Link>
           </div>
           
-          {/* Search bar (center positioned on desktop) */}
           <div className="hidden md:flex items-center justify-center flex-1 mx-4">
             <SearchBar />
           </div>
           
-          {/* Right side actions */}
           <div className="flex items-center gap-2">
-            {/* Create new button */}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -261,7 +248,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               </Tooltip>
             </TooltipProvider>
             
-            {/* Notifications */}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -357,7 +343,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               </Tooltip>
             </TooltipProvider>
             
-            {/* User menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 gap-1.5">
@@ -400,13 +385,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
       
-      {/* Search bar for mobile */}
       <div className="md:hidden px-4 py-2 border-b border-border">
         <SearchBar />
       </div>
       
       <div className="flex flex-1 overflow-hidden">
-        {/* Desktop Sidebar */}
         <aside className="hidden md:block w-56 border-r border-border bg-card">
           <div className="h-full flex flex-col py-6">
             <nav className="space-y-1 px-3 flex-1">
@@ -467,7 +450,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </div>
         </aside>
         
-        {/* Main content */}
         <main className="flex-1 overflow-auto">
           <div className="container py-6 max-w-6xl">
             {children}

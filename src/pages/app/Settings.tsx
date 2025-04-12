@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAppState } from '@/lib/app-state';
 import AppLayout from '@/components/AppLayout';
@@ -53,17 +52,17 @@ const Settings = () => {
   const [theme, setTheme] = useState<'dark' | 'light' | 'system'>(user?.settings?.theme || 'dark');
   
   // Notification settings
-  const [notificationsEnabled, setNotificationsEnabled] = useState(user?.settings?.notifications || true);
+  const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(user?.settings?.notifications || true);
   
   // Editor settings
   const [fontSize, setFontSize] = useState(user?.settings?.editor?.fontSize || 14);
   const [tabSize, setTabSize] = useState(user?.settings?.editor?.tabSize || 2);
-  const [autoSave, setAutoSave] = useState(user?.settings?.editor?.autoSave || true);
+  const [autoSave, setAutoSave] = useState<boolean>(user?.settings?.editor?.autoSave || true);
   
   // Language preferences
   const [preferredLanguage, setPreferredLanguage] = useState('typescript');
-  const [syntaxHighlighting, setSyntaxHighlighting] = useState(true);
-  const [lineNumbers, setLineNumbers] = useState(true);
+  const [syntaxHighlighting, setSyntaxHighlighting] = useState<boolean>(true);
+  const [lineNumbers, setLineNumbers] = useState<boolean>(true);
   
   // Handle settings save
   const handleSaveSettings = () => {
@@ -295,7 +294,7 @@ const Settings = () => {
                         <Switch 
                           id="auto-save" 
                           checked={autoSave}
-                          onCheckedChange={setAutoSave}
+                          onCheckedChange={(checked: boolean) => setAutoSave(checked)}
                         />
                       </div>
                       
@@ -307,7 +306,7 @@ const Settings = () => {
                         <Switch 
                           id="line-numbers" 
                           checked={lineNumbers}
-                          onCheckedChange={setLineNumbers}
+                          onCheckedChange={(checked: boolean) => setLineNumbers(checked)}
                         />
                       </div>
                       
@@ -319,7 +318,7 @@ const Settings = () => {
                         <Switch 
                           id="syntax-highlighting" 
                           checked={syntaxHighlighting}
-                          onCheckedChange={setSyntaxHighlighting}
+                          onCheckedChange={(checked: boolean) => setSyntaxHighlighting(checked)}
                         />
                       </div>
                       
@@ -360,7 +359,7 @@ const Settings = () => {
                     <Switch
                       id="notifications"
                       checked={notificationsEnabled}
-                      onCheckedChange={setNotificationsEnabled}
+                      onCheckedChange={(checked: boolean) => setNotificationsEnabled(checked)}
                     />
                   </div>
                   
