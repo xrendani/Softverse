@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Github, Twitter } from "lucide-react";
+import { Twitter } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 const Footer = () => {
@@ -60,7 +60,7 @@ const Footer = () => {
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
             <span className="font-rubik text-xl font-bold text-foreground">
-              devforge<span className="text-softverse-purple">_</span>
+              aio_dev<span className="text-softverse-purple">_</span>
             </span>
           </div>
           <p className="text-sm text-muted-foreground">
@@ -69,12 +69,6 @@ const Footer = () => {
             Open source and Open code.
           </p>
           <div className="flex gap-2">
-            <Button variant="outline" size="icon" asChild>
-              <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer">
-                <Github className="h-4 w-4" />
-                <span className="sr-only">GitHub</span>
-              </a>
-            </Button>
             <Button variant="outline" size="icon" asChild>
               <a href="https://twitter.com/xrendani" target="_blank" rel="noopener noreferrer">
                 <Twitter className="h-4 w-4" />
@@ -140,7 +134,7 @@ const Footer = () => {
       
       <div className="container mt-8 border-t pt-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} DevForge. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} aio_dev. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-foreground">Terms</a>
             <a href="#" className="hover:text-foreground">Privacy</a>

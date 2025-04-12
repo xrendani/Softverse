@@ -99,4 +99,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by [Rendani Manugeni](https://github.com/xrendani)
+Built with ❤️ by [Rendani Manugeni](https://twitter.com/xrendani)

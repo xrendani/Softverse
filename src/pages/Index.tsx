@@ -33,6 +33,7 @@ import AiFeatures from "@/components/AiFeatures";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { fetchPopularDevLibs, GithubRepo, repoToResourceCard } from "@/lib/github-api";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   // Feature cards data
@@ -41,49 +42,41 @@ const Index = () => {
       title: "Code Snippets",
       description: "Create, share and discover useful code snippets. Save time with reusable solutions to common problems.",
       icon: Code,
-      url: "/tools/code-snippets"
     },
     {
       title: "Project Management",
       description: "Manage your development projects with ease. Track progress, assign tasks, and meet deadlines.",
       icon: Folders,
-      url: "/tools/project-management"
     },
     {
       title: "Resource Library",
       description: "Access a curated library of development resources, tutorials, and documentation.",
       icon: Library,
-      url: "#"
     },
     {
       title: "Secure Sharing",
       description: "Share your work with teammates or the community with granular permission controls.",
       icon: Lock,
-      url: "#"
     },
     {
       title: "Collaboration Tools",
       description: "Work together with built-in tools for code reviews, comments, and real-time collaboration.",
       icon: Share2,
-      url: "#"
     },
     {
       title: "Smart Suggestions",
       description: "Get intelligent suggestions and insights to optimize your code and workflow.",
       icon: Sparkles,
-      url: "#"
     },
     {
       title: "Universal Formatter & Linter",
       description: "Format and lint your code with customizable rules across multiple programming languages.",
       icon: Brush,
-      url: "#"
     },
     {
       title: "AI Code Reviewer",
       description: "Get smart suggestions for code optimizations and security vulnerability identification.",
       icon: Wand2,
-      url: "#"
     },
     {
       title: "Cross-platform Testing",
@@ -101,7 +94,6 @@ const Index = () => {
       title: "Dependency Scanner",
       description: "Scan your dependencies for vulnerabilities and get automated fix suggestions.",
       icon: ShieldAlert,
-      url: "#"
     },
     {
       title: "Schema Designer",
@@ -113,7 +105,6 @@ const Index = () => {
       title: "API Development Environment",
       description: "Build, mock, test, and document your APIs in a comprehensive development environment.",
       icon: Globe,
-      url: "#"
     },
     {
       title: "Performance Profiler",
@@ -131,13 +122,11 @@ const Index = () => {
       title: "Universal Package Manager",
       description: "Manage packages across multiple ecosystems (npm, pip, etc.) with a unified interface.",
       icon: PackageOpen,
-      url: "#"
     },
     {
       title: "Code Snippet Manager",
       description: "Organize and search your code snippets with AI-powered search and tagging.",
       icon: Zap,
-      url: "/tools/code-snippets"
     },
     {
       title: "CI/CD Pipeline Designer",
@@ -321,7 +310,6 @@ const Index = () => {
                   description={feature.description}
                   icon={feature.icon}
                   comingSoon={feature.comingSoon}
-                  url={feature.url}
                 />
               ))}
             </div>
@@ -344,10 +332,10 @@ const Index = () => {
                 </p>
               </div>
               <Button className="flex items-center gap-1" asChild>
-                <a href="/tools/code-snippets">
-                  <span>View all snippets</span>
+                <Link to="/app/login">
+                  <span>Access in Dashboard</span>
                   <ArrowUpRight className="h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
             
@@ -379,10 +367,10 @@ const Index = () => {
                 </p>
               </div>
               <Button className="flex items-center gap-1" asChild>
-                <a href="/tools/project-management">
-                  <span>Explore projects</span>
+                <Link to="/app/login">
+                  <span>Access in Dashboard</span>
                   <ArrowUpRight className="h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
             
@@ -416,10 +404,10 @@ const Index = () => {
                 </p>
               </div>
               <Button className="flex items-center gap-1" asChild>
-                <a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">
-                  <span>View trending on GitHub</span>
+                <Link to="/app/login">
+                  <span>Access in Dashboard</span>
                   <ArrowUpRight className="h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
             
@@ -485,14 +473,18 @@ const Index = () => {
                   Ready to supercharge your development workflow?
                 </h2>
                 <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8">
-                  Join softverse today and unlock the full potential of open source and collaborative development.
+                  Join aio_dev today and unlock the full potential of open source and collaborative development.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" className="bg-white text-softverse-purple hover:bg-white/90">
-                    Get Started
+                  <Button size="lg" className="bg-white text-softverse-purple hover:bg-white/90" asChild>
+                    <Link to="/app/signup">
+                      Get Started
+                    </Link>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                    Learn More
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                    <Link to="/app/login">
+                      Log In
+                    </Link>
                   </Button>
                 </div>
               </div>
