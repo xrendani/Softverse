@@ -1,0 +1,66 @@
+
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Create zip artifact
+        run: |
+          zip -r aio-dev-${{ github.ref_name }}.zip dist/
+      
+      - name: Generate changelog
+        id: changelog
+        run: |
+          previous_tag=$(git describe --tags --abbrev=0 ${{ github.ref_name }}^ 2>/dev/null || echo "")
+          if [ -z "$previous_tag" ]; then
+            echo "CHANGELOG=$(git log --pretty=format:'- %s' ${{ github.ref_name }})" >> $GITHUB_OUTPUT
+          else
+            echo "CHANGELOG=$(git log --pretty=format:'- %s' $previous_tag..${{ github.ref_name }})" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            ## Changes in this Release
+            ${{ steps.changelog.outputs.CHANGELOG }}
+          draft: false
+          prerelease: false
+      
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./aio-dev-${{ github.ref_name }}.zip
+          asset_name: aio-dev-${{ github.ref_name }}.zip
+          asset_content_type: application/zip

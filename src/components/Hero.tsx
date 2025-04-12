@@ -1,3 +1,4 @@
+
 import { ArrowRight, Github, Code, GitBranch, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -136,7 +137,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            Built by <a href="https://x.com/rendanimanugeni" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Rendani Manugeni</a>
+            Built by <a href="https://x.com/xrendani" target="_blank" rel="noopener noreferrer" className="text-softverse-purple hover:underline">Rendani Manugeni</a>
           </motion.div>
         </div>
       </div>

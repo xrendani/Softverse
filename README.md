@@ -1,11 +1,11 @@
 
 # aio_dev
 
-> The everything app for developers. All in one platform for code, collaboration, and productivity.
+> The everything app for developers. Open source. Open code.
 
 aio_dev is a comprehensive platform that brings together essential developer tools, resources, and GitHub integration in one place. Built for developers by developers, it aims to streamline workflow and boost productivity.
 
-[screenshot](/public/screenshot-app.png)
+![screenshot](/public/screenshot-app.png)
 
 ## 🚀 Features
 
@@ -25,20 +25,17 @@ aio_dev is a comprehensive platform that brings together essential developer too
 - Automated dependency tracking and security vulnerability detection
 - AI-powered code review suggestions integrated into PR workflows
 
-**Collaboration Features:**
-- Real-time collaborative coding environments linked to GitHub repositories
-- Automated documentation generation
-- Integrated testing environments reporting results back to GitHub
-
 **Developer Productivity:**
 - Custom workflow automations beyond standard GitHub Actions
 - Intelligent issue prioritization and workload balancing
-- Code snippet library with GitHub Gists integration
+- Project management with GitHub integration
 
-**Learning & Growth:**
-- Personalized skill development recommendations
-- Code challenges with automatic feedback
-- Project-specific onboarding guides for new team members
+**Advanced Features (Coming Soon):**
+- API Development Environment
+- Dependency Scanner
+- Universal Package Manager
+- Universal Formatter & Linter
+- AI Code Reviewer
 
 ## 🛠️ Tech Stack
 
@@ -50,6 +47,7 @@ aio_dev is a comprehensive platform that brings together essential developer too
 - [Lucide Icons](https://lucide.dev/) - Beautiful open source icons
 - [React Router](https://reactrouter.com/) - Routing
 - [TanStack Query](https://tanstack.com/query) - Data fetching and state management
+- [Framer Motion](https://www.framer.com/motion/) - Animations
 - [GitHub API](https://docs.github.com/en/rest) - GitHub integration
 
 ## 🚀 Getting Started
@@ -62,8 +60,8 @@ aio_dev is a comprehensive platform that brings together essential developer too
 
 1. Clone the repository
    ```
-   git clone https://github.com/xrendani/aio_dev.git
-   cd aio_dev
+   git clone https://github.com/xrendani/aio-dev.git
+   cd aio-dev
    ```
 
 2. Install dependencies
@@ -99,4 +97,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by [Rendani Manugeni](https://twitter.com/xrendani)
+Built with ❤️ by [Rendani Manugeni](https://x.com/xrendani)

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Github, Search, Menu, UserPlus, LogIn, X } from "lucide-react";
+import { Github, Search, Menu, UserPlus, LogIn, X, Twitter } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -48,7 +48,6 @@ const Navbar = () => {
           <div className="hidden md:flex items-center ml-6 gap-6">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#ai-tools" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Tools</a>
-            <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Projects</a>
             <a href="#resources" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Resources</a>
           </div>
         </div>
@@ -77,13 +76,34 @@ const Navbar = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button variant="outline" size="icon" asChild>
-                    <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/xrendani/aio-dev" target="_blank" rel="noopener noreferrer">
                       <Github className="h-4 w-4" />
                     </a>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>View on GitHub</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="https://x.com/xrendani" target="_blank" rel="noopener noreferrer">
+                      <Twitter className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Follow on X (Twitter)</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -146,7 +166,6 @@ const Navbar = () => {
           <div className="space-y-2">
             <a href="#features" className="block px-2 py-1 hover:bg-muted/20 rounded">Features</a>
             <a href="#ai-tools" className="block px-2 py-1 hover:bg-muted/20 rounded">AI Tools</a>
-            <a href="#projects" className="block px-2 py-1 hover:bg-muted/20 rounded">Projects</a>
             <a href="#resources" className="block px-2 py-1 hover:bg-muted/20 rounded">Resources</a>
           </div>
           <div className="relative">
@@ -159,8 +178,13 @@ const Navbar = () => {
           </div>
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="sm" asChild className="flex-1">
-              <a href="https://github.com/xrendani" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/xrendani/aio-dev" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4 mr-2" /> GitHub
+              </a>
+            </Button>
+            <Button variant="outline" size="sm" asChild className="flex-1">
+              <a href="https://x.com/xrendani" target="_blank" rel="noopener noreferrer">
+                <Twitter className="h-4 w-4 mr-2" /> X (Twitter)
               </a>
             </Button>
             {isLoggedIn ? (
