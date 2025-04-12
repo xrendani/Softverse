@@ -12,6 +12,8 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Dashboard from "./pages/app/Dashboard";
+import Profile from "./pages/app/Profile";
+import Settings from "./pages/app/Settings";
 
 // Initialize QueryClient
 const queryClient = new QueryClient({
@@ -41,6 +43,8 @@ const App = () => {
               
               {/* App routes */}
               <Route path="/app/dashboard" element={<Dashboard />} />
+              <Route path="/app/profile" element={<Profile />} />
+              <Route path="/app/settings" element={<Settings />} />
               
               {/* Redirect /app to dashboard if logged in */}
               <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />

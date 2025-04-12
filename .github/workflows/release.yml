@@ -27,6 +27,8 @@ jobs:
       
       - name: Build
         run: npm run build
+        env:
+          BASE_URL: /aio-dev/
       
       - name: Create zip artifact
         run: |
@@ -43,6 +45,7 @@ jobs:
           fi
       
       - name: Create Release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
