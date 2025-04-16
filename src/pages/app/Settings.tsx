@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { useAppState } from "@/lib/app-state";
-import AppLayout from "@/components/AppLayout";
 import { AlertTriangle, CheckCircle, Github, RefreshCw, Save, Shield, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -259,7 +257,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={emailNotifications} 
-                      onCheckedChange={setEmailNotifications} 
+                      onCheckedChange={(checked) => setEmailNotifications(checked)} 
                     />
                   </div>
                   <Separator />
@@ -272,7 +270,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={pushNotifications} 
-                      onCheckedChange={setPushNotifications} 
+                      onCheckedChange={(checked) => setPushNotifications(checked)} 
                     />
                   </div>
                   <Separator />
@@ -285,7 +283,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={newFeatures} 
-                      onCheckedChange={setNewFeatures} 
+                      onCheckedChange={(checked) => setNewFeatures(checked)} 
                     />
                   </div>
                   <Separator />
@@ -298,7 +296,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={securityAlerts} 
-                      onCheckedChange={setSecurityAlerts} 
+                      onCheckedChange={(checked) => setSecurityAlerts(checked)} 
                     />
                   </div>
                 </div>

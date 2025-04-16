@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import ToolLayout from '@/components/ToolLayout';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { RefreshCw, Star, GitFork, Eye, GitHub, ExternalLink, Code, Search } from 'lucide-react';
+import { RefreshCw, Star, GitFork, Eye, Github, ExternalLink, Code, Search } from 'lucide-react';
 import { fetchTrendingRepos, initiateGithubLogin } from '@/lib/github-api';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -104,7 +103,7 @@ const GitHubIntegration = () => {
       <CardFooter className="pt-2">
         <Button size="sm" variant="outline" className="w-full" asChild>
           <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-            <GitHub className="mr-2 h-3.5 w-3.5" />
+            <Github className="mr-2 h-3.5 w-3.5" />
             <span>View Repository</span>
           </a>
         </Button>
@@ -123,7 +122,7 @@ const GitHubIntegration = () => {
             className="w-full bg-[#24292e] hover:bg-[#24292e]/90"
             onClick={handleGitHubLogin}
           >
-            <GitHub className="mr-2 h-4 w-4" />
+            <Github className="mr-2 h-4 w-4" />
             Connect with GitHub
           </Button>
         </div>
@@ -229,13 +228,13 @@ const GitHubIntegration = () => {
         
         <TabsContent value="your-repos" className="mt-0">
           <div className="text-center py-12">
-            <GitHub className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+            <Github className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium mb-2">Connect with GitHub</h3>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
               Sign in with your GitHub account to access and manage your repositories.
             </p>
             <Button onClick={handleGitHubLogin}>
-              <GitHub className="mr-2 h-4 w-4" />
+              <Github className="mr-2 h-4 w-4" />
               Connect with GitHub
             </Button>
           </div>
@@ -249,7 +248,7 @@ const GitHubIntegration = () => {
               Sign in with your GitHub account to access your starred repositories.
             </p>
             <Button onClick={handleGitHubLogin}>
-              <GitHub className="mr-2 h-4 w-4" />
+              <Github className="mr-2 h-4 w-4" />
               Connect with GitHub
             </Button>
           </div>

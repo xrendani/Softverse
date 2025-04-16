@@ -19,6 +19,7 @@ import Settings from "./pages/app/Settings";
 import ResourceLibrary from "./pages/tools/ResourceLibrary";
 import GitHubIntegration from "./pages/tools/GitHubIntegration";
 import SystemResources from "./pages/tools/SystemResources";
+import CodeSnippetManager from "./pages/tools/CodeSnippetManager";
 
 // Initialize QueryClient
 const queryClient = new QueryClient({
@@ -55,6 +56,7 @@ const App = () => {
               <Route path="/tools/resources" element={<ResourceLibrary />} />
               <Route path="/tools/github" element={<GitHubIntegration />} />
               <Route path="/tools/system" element={<SystemResources />} />
+              <Route path="/tools/snippets" element={<CodeSnippetManager />} />
               
               {/* Redirect /app to dashboard if logged in */}
               <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />
