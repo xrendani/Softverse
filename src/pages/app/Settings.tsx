@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AppLayout from "@/components/AppLayout";
 
 const Settings = () => {
   const { user } = useAppState();
@@ -257,7 +259,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={emailNotifications} 
-                      onCheckedChange={(checked) => setEmailNotifications(checked)} 
+                      onCheckedChange={setEmailNotifications} 
                     />
                   </div>
                   <Separator />
@@ -270,7 +272,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={pushNotifications} 
-                      onCheckedChange={(checked) => setPushNotifications(checked)} 
+                      onCheckedChange={setPushNotifications} 
                     />
                   </div>
                   <Separator />
@@ -283,7 +285,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={newFeatures} 
-                      onCheckedChange={(checked) => setNewFeatures(checked)} 
+                      onCheckedChange={setNewFeatures} 
                     />
                   </div>
                   <Separator />
@@ -296,7 +298,7 @@ const Settings = () => {
                     </div>
                     <Switch 
                       checked={securityAlerts} 
-                      onCheckedChange={(checked) => setSecurityAlerts(checked)} 
+                      onCheckedChange={setSecurityAlerts} 
                     />
                   </div>
                 </div>
@@ -645,7 +647,6 @@ const Settings = () => {
                   variant="outline"
                   onClick={() => {
                     toast({
-                      title: "Cleanup Started",
                       description: "Scanning for unused files...",
                     });
                     setTimeout(() => {
