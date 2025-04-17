@@ -1,80 +1,90 @@
 
-import { Button } from "@/components/ui/button";
-import { Copy, Heart } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Copy, Check, Star, Code, Heart } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-interface CodeSnippetCardProps {
+type CodeSnippetCardProps = {
   title: string;
   language: string;
   code: string;
   likes: number;
   author: string;
-}
+  isFavorite?: boolean;
+  onCopy?: () => void;
+  onFavorite?: () => void;
+};
 
-const CodeSnippetCard = ({ title, language, code, likes, author }: CodeSnippetCardProps) => {
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
-
+const CodeSnippetCard = ({ 
+  title, 
+  language, 
+  code, 
+  likes, 
+  author,
+  isFavorite = false,
+  onCopy,
+  onFavorite 
+}: CodeSnippetCardProps) => {
+  const [copied, setCopied] = useState(false);
+  
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
-    toast.success('Code copied to clipboard!');
-  };
-
-  const handleLike = () => {
-    if (!liked) {
-      setLikeCount(prev => prev + 1);
-      setLiked(true);
-      toast.success('Added to favorites!');
-    } else {
-      setLikeCount(prev => prev - 1);
-      setLiked(false);
-      toast.success('Removed from favorites!');
-    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    if (onCopy) onCopy();
   };
 
   return (
-    <div className="rounded-lg border bg-card overflow-hidden">
-      <div className="flex items-center justify-between border-b px-4 py-3">
-        <div>
-          <h3 className="font-medium">{title}</h3>
-          <p className="text-xs text-muted-foreground">by {author}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="rounded border px-2 py-1 text-xs font-medium">
-            {language}
+    <Card className="overflow-hidden h-full flex flex-col">
+      <CardHeader className="pb-2">
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle className="text-lg">{title}</CardTitle>
+            <CardDescription>By {author}</CardDescription>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8"
-            onClick={handleLike}
-          >
-            <Heart
-              className={`h-4 w-4 ${liked ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`}
-            />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8"
-            onClick={handleCopy}
-          >
-            <Copy className="h-4 w-4" />
-          </Button>
+          <div className="flex gap-1">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={cn(
+                "h-8 w-8", 
+                isFavorite && "text-yellow-500 hover:text-yellow-600"
+              )}
+              onClick={onFavorite}
+            >
+              <Star className="h-4 w-4" fill={isFavorite ? "currentColor" : "none"} />
+            </Button>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleCopy}>
+              {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className="code-block whitespace-pre-wrap">
-        <pre>{code}</pre>
-      </div>
-      <div className="flex items-center justify-between px-4 py-3 text-xs text-muted-foreground">
-        <div className="flex items-center">
-          <Heart className="mr-1 h-3.5 w-3.5" />
-          <span>{likeCount} likes</span>
+        <div className="flex items-center mt-1">
+          <span className="text-xs px-2 py-1 rounded-full bg-muted">{language}</span>
+          <span className="text-xs ml-2 flex items-center gap-1 text-muted-foreground">
+            <Heart className="h-3 w-3" /> {likes}
+          </span>
         </div>
-        <div>Added 2 days ago</div>
-      </div>
-    </div>
+      </CardHeader>
+      <CardContent className="flex-grow">
+        <div className="bg-muted p-3 rounded-md overflow-x-auto max-h-48">
+          <pre className="text-sm leading-relaxed">
+            <code>{code}</code>
+          </pre>
+        </div>
+      </CardContent>
+      <CardFooter className="pt-2 flex justify-between">
+        <Button variant="outline" size="sm" className="gap-1" onClick={handleCopy}>
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? "Copied!" : "Copy Code"}
+        </Button>
+        <Button variant="ghost" size="sm" className="gap-1">
+          <Code className="h-3.5 w-3.5" />
+          Preview
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

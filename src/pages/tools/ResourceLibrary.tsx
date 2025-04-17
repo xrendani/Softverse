@@ -1,18 +1,18 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import ToolLayout from '@/components/ToolLayout';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Search, Bookmark, Star, ExternalLink, Download } from 'lucide-react';
+import { Search, Bookmark } from 'lucide-react';
+import BrowserResourceList from '@/components/BrowserResourceList';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPopularDevLibs, repoToResourceCard } from '@/lib/github-api';
+import { fetchPopularDevLibs } from '@/lib/github-api';
 import ResourceCard from '@/components/ResourceCard';
 
 const ResourceLibrary = () => {
-  const [activeTab, setActiveTab] = React.useState('libraries');
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [activeTab, setActiveTab] = useState('browser');
+  const [searchTerm, setSearchTerm] = useState('');
   
   const { data: frontendLibs, isLoading: frontendLoading } = useQuery({
     queryKey: ['libraries', 'frontend'],
@@ -32,22 +32,29 @@ const ResourceLibrary = () => {
   // Convert GitHub repos to resource cards
   const processLibraries = (repos) => {
     if (!repos) return [];
-    const iconOptions = [Search, Bookmark, Star, ExternalLink, Download];
+    const iconOptions = [Search, Bookmark];
     const colorOptions = [
       "bg-softverse-purple", 
       "bg-softverse-blue", 
       "bg-emerald-500", 
       "bg-orange-500", 
-      "bg-red-500", 
-      "bg-indigo-500"
+      "bg-red-500"
     ];
     
     return repos.map((repo, index) => {
-      return repoToResourceCard(
-        repo, 
-        colorOptions[index % colorOptions.length], 
-        iconOptions[index % iconOptions.length]
-      );
+      const IconComponent = iconOptions[index % iconOptions.length];
+      const color = colorOptions[index % colorOptions.length];
+      
+      return {
+        title: repo.name,
+        description: repo.description || `A popular ${repo.language || ''} repository`,
+        icon: IconComponent,
+        color: color,
+        tags: repo.topics?.slice(0, 3) || [repo.language || 'Repository'],
+        url: repo.html_url,
+        stars: repo.stargazers_count,
+        githubUrl: repo.html_url
+      };
     });
   };
 
@@ -60,32 +67,17 @@ const ResourceLibrary = () => {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
-              <CardHeader className="pb-2">
-                <div className="flex items-start">
-                  <div className="h-10 w-10 rounded-md bg-muted"></div>
-                  <div className="ml-3 flex-1">
-                    <div className="h-5 bg-muted rounded w-3/4 mb-2"></div>
-                    <div className="h-4 bg-muted rounded w-1/2"></div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="h-4 bg-muted rounded w-full mb-2"></div>
-                <div className="h-4 bg-muted rounded w-5/6 mb-2"></div>
-                <div className="h-4 bg-muted rounded w-4/6"></div>
-                <div className="mt-4 flex gap-2">
-                  <div className="h-6 w-16 bg-muted rounded-full"></div>
-                  <div className="h-6 w-16 bg-muted rounded-full"></div>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={i} className="animate-pulse">
+              <div className="h-40 bg-muted rounded-md mb-2"></div>
+              <div className="h-5 bg-muted rounded w-3/4 mb-2"></div>
+              <div className="h-4 bg-muted rounded w-1/2"></div>
+            </div>
           ))}
         </div>
       );
     }
     
-    if (resources.length === 0) {
+    if (!resources || resources.length === 0) {
       return (
         <div className="text-center py-8">
           <p className="text-muted-foreground">No resources found. Try adjusting your search.</p>
@@ -142,18 +134,26 @@ const ResourceLibrary = () => {
         </Button>
       </div>
       
-      <Tabs defaultValue="libraries" onValueChange={setActiveTab} className="w-full">
+      <Tabs defaultValue="browser" onValueChange={setActiveTab} className="w-full">
         <TabsList className="mb-4">
-          <TabsTrigger value="libraries">Frontend Libraries</TabsTrigger>
+          <TabsTrigger value="browser">Browser Resources</TabsTrigger>
+          <TabsTrigger value="frontend">Frontend Libraries</TabsTrigger>
           <TabsTrigger value="backend">Backend Tools</TabsTrigger>
           <TabsTrigger value="devtools">Development Tools</TabsTrigger>
         </TabsList>
-        <TabsContent value="libraries" className="mt-0">
+        
+        <TabsContent value="browser" className="mt-0">
+          <BrowserResourceList />
+        </TabsContent>
+        
+        <TabsContent value="frontend" className="mt-0">
           {renderResourceGrid(frontendResources, frontendLoading)}
         </TabsContent>
+        
         <TabsContent value="backend" className="mt-0">
           {renderResourceGrid(backendResources, backendLoading)}
         </TabsContent>
+        
         <TabsContent value="devtools" className="mt-0">
           {renderResourceGrid(devToolsResources, toolsLoading)}
         </TabsContent>

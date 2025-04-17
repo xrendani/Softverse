@@ -8,6 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAppState } from '@/lib/app-state';
 import { motion } from 'framer-motion';
+import Logo from './Logo';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,14 +45,13 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center space-x-2">
-            <motion.span 
-              className="font-rubik text-xl font-bold tracking-tight text-foreground"
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              aio_dev<span className="text-softverse-purple">_</span>
-            </motion.span>
+              <Logo size="md" />
+            </motion.div>
           </Link>
           <div className="hidden md:flex items-center ml-6 gap-6">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
@@ -74,6 +74,9 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/tools/system">System Resources</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/tools/snippets">Code Snippets</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -224,6 +227,9 @@ const Navbar = () => {
             </Link>
             <Link to="/tools/system" className="block px-2 py-1 hover:bg-muted/20 rounded">
               System Resources
+            </Link>
+            <Link to="/tools/snippets" className="block px-2 py-1 hover:bg-muted/20 rounded">
+              Code Snippets
             </Link>
           </div>
           <div className="relative">
