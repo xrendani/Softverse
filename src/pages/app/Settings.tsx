@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -646,9 +645,7 @@ const Settings = () => {
                 <Button
                   variant="outline"
                   onClick={() => {
-                    toast({
-                      description: "Scanning for unused files...",
-                    });
+                    toast.info("Scanning for unused files...");
                     setTimeout(() => {
                       const cleaned = Math.floor(Math.random() * 50) + 10;
                       setStorageUsed((prev) => Math.max(0, prev - cleaned));
