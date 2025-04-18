@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Cpu, HardDrive, Activity, Database, Memory } from 'lucide-react';
+import { Cpu, HardDrive, Activity, Database, MemoryStick } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ResourceMonitorProps {
@@ -81,7 +81,7 @@ const SystemResourcesMonitor = () => {
         />
         <ResourceMonitor 
           title="Memory Usage" 
-          icon={<Memory className="h-5 w-5" />} 
+          icon={<MemoryStick className="h-5 w-5" />} 
           value={memoryUsage}
           description="RAM utilization"
         />

@@ -16,8 +16,7 @@ const Footer = () => {
     if (!email || !email.includes('@')) {
       toast({
         title: "Invalid email",
-        description: "Please enter a valid email address.",
-        variant: "destructive"
+        description: "Please enter a valid email address."
       });
       return;
     }
@@ -35,8 +34,7 @@ const Footer = () => {
       
       toast({
         title: "Subscription successful!",
-        description: `${email} will receive updates about aio_dev.`,
-        variant: "default"
+        description: `${email} will receive updates about aio_dev.`
       });
       
       setEmail("");
@@ -46,8 +44,7 @@ const Footer = () => {
     } catch (error) {
       toast({
         title: "Subscription failed",
-        description: "Please try again later.",
-        variant: "destructive"
+        description: "Please try again later."
       });
     } finally {
       setIsSubmitting(false);

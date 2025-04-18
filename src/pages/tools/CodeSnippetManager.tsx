@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import ToolLayout from '@/components/ToolLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, Plus, Copy, Star, Heart, Bookmark, Code } from 'lucide-react';
+import { Search, Plus, Copy, Star, Heart, Bookmark, Code, Clock as ClockIcon } from 'lucide-react';
 import CodeSnippetCard from '@/components/CodeSnippetCard';
 import {
   Dialog,
@@ -20,7 +19,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 
-// Sample data
 const initialSnippets = [
   {
     id: '1',
@@ -66,7 +64,6 @@ const CodeSnippetManager = () => {
   const [filteredSnippets, setFilteredSnippets] = useState(snippets);
   const [activeTab, setActiveTab] = useState('all');
   
-  // New snippet form state
   const [newSnippet, setNewSnippet] = useState({
     title: '',
     language: 'JavaScript',
@@ -75,29 +72,23 @@ const CodeSnippetManager = () => {
   });
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  // Handle search
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value;
     setSearchTerm(term);
     filterSnippets(term, activeTab);
   };
 
-  // Filter snippets based on search term and active tab
   const filterSnippets = (term = searchTerm, tab = activeTab) => {
     let filtered = snippets;
     
-    // Apply tab filter
     if (tab === 'favorites') {
       filtered = filtered.filter(snippet => snippet.isFavorite);
     } else if (tab === 'my-snippets') {
       filtered = filtered.filter(snippet => snippet.author === 'You');
     } else if (tab === 'recent') {
-      // In a real app, we would track recently viewed snippets
-      // For this demo, we'll just show the most recent ones
       filtered = filtered.slice(0, 3);
     }
     
-    // Apply search term filter
     if (term) {
       filtered = filtered.filter(snippet => 
         snippet.title.toLowerCase().includes(term.toLowerCase()) || 
@@ -109,13 +100,11 @@ const CodeSnippetManager = () => {
     setFilteredSnippets(filtered);
   };
 
-  // Handle tab change
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     filterSnippets(searchTerm, value);
   };
 
-  // Handle adding a new snippet
   const handleAddSnippet = () => {
     const newId = (snippets.length + 1).toString();
     const snippetToAdd = {
@@ -129,7 +118,6 @@ const CodeSnippetManager = () => {
     setSnippets(updatedSnippets);
     filterSnippets(searchTerm, activeTab);
     
-    // Reset form
     setNewSnippet({
       title: '',
       language: 'JavaScript',
@@ -141,7 +129,6 @@ const CodeSnippetManager = () => {
     toast.success("Snippet added successfully!");
   };
 
-  // Handle toggling favorite status
   const handleToggleFavorite = (id: string) => {
     const updatedSnippets = snippets.map(snippet => 
       snippet.id === id 
@@ -157,7 +144,6 @@ const CodeSnippetManager = () => {
     }
   };
 
-  // Handle copying code to clipboard
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
     toast.success("Copied to clipboard!");
@@ -309,7 +295,7 @@ const CodeSnippetManager = () => {
           
           {filteredSnippets.length === 0 && (
             <div className="text-center py-12">
-              <Clock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+              <ClockIcon className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
               <p className="text-muted-foreground">Your recently viewed snippets will appear here.</p>
             </div>
           )}
